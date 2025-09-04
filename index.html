@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ferramenta de Concessão de Pensão Militar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Calculo da Pensão Militar</h1>
+
+  <form id="formulario">
+    <label for="posto">Posto/Graduação Real:</label>
+    <input type="text" id="posto" placeholder="Ex: Capitão"><br>
+
+    <label for="salario">Último salário:</label>
+    <input type="number" id="salario" placeholder="Ex: 7500"><br>
+
+    <button type="button" onclick="calcularPensao()">Calcular</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
