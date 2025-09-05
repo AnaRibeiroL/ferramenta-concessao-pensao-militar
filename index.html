@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Ferramenta de Concessão de Pensão Militar</title>
+  <title>Ferramenta de Pensão Militar</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Calculo da Pensão Militar</h1>
-
-  <form id="formulario">
-    <label for="posto">Posto/Graduação Real:</label>
-    <input type="text" id="posto" placeholder="Ex: Capitão"><br>
-
-    <label for="salario">Último salário:</label>
-    <input type="number" id="salario" placeholder="Ex: 7500"><br>
-
-    <button type="button" onclick="calcularPensao()">Calcular</button>
-  </form>
-
-  <div id="resultado"></div>
+  <div class="menu-container">
+    <h1>Ferramenta de Concessão de Pensão Militar</h1>
+    <div class="descricao">
+      Bem-vindo à versão web da ferramenta. Escolha abaixo a funcionalidade desejada:
+    </div>
+    <div class="botoes">
+      <button onclick="navegar('calculoPensao')">Cálculo da Pensão</button>
+      <button onclick="navegar('simuladorAuxilios')">Simulador de Auxílios</button>
+      <button onclick="navegar('exportarWord')">Exportar para Word</button>
+      <button onclick="navegar('sobre')">Sobre a Ferramenta</button>
+    </div>
+    <div class="rodape">
+      Versão 1.0 • Desenvolvido por Ana • © 2025
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
