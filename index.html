@@ -3,25 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <title>Ferramenta de Concessão de Pensão Militar</title>
+  <!-- Importa a fonte Roboto do Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <!-- Importa o arquivo de estilos CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Faixa superior azul com logo DAP à esquerda, título centralizado e logo DGP à direita -->
+  <div class="faixa-superior">
+    <img src="imgdap.png" alt="Símbolo DAP" class="logo-dap">
+    <h1 class="titulo-principal">Ferramenta de concessão da Pensão Militar</h1>
+    <img src="imgDGP.png" alt="Símbolo DGP" class="logo-dgp">
+  </div>
+
+  <!-- Faixa do menu de navegação logo abaixo da faixa superior -->
   <div class="menu-container">
-    <h1>Ferramenta de Concessão de Pensão Militar</h1>
-    <div class="descricao">
-      Bem-vindo à versão web da ferramenta. Escolha abaixo a funcionalidade desejada:
-    </div>
     <div class="botoes">
+      <!-- Botão para abrir a aba de cálculo da pensão -->
       <button onclick="navegar('calculoPensao')">Cálculo da Pensão</button>
-      <button onclick="navegar('cadastrorequerentes')">Cadastro dos Requerentes</button>
+      <!-- Botão para exportar para Word -->
+       <button onclick="navegar('cadastrorequerentes')">Cadastro dos Requerentes</button>
+       -- Botão para cadastrar os requerentes
       <button onclick="navegar('exportarWord')">Exportar para Word</button>
-      <button onclick="navegar('sobre')">Sobre a Ferramenta</button>
-    </div>
-    <div class="rodape">
-      Versão 1.0 • Desenvolvido por 3° Sgt Ana Cristina • © 2025
+      <!-- Adicione mais botões conforme necessário -->
     </div>
   </div>
 
+  <!-- Aba de Cálculo da Pensão, aparece ao clicar no botão correspondente -->
+  <div id="calculoPensaoAba" class="aba-calculo" style="display:none;">
+    <!-- Faixa superior da aba cálculo, igual ao menu inicial -->
+    <div class="faixa-superior-calculo">
+      <h2 class="titulo-calculo">Cálculo da Pensão</h2>
+    </div>
+    <!-- Conteúdo da aba cálculo, centralizado e responsivo -->
+    <div class="conteudo-calculo">
+      <!-- Botão para mostrar/ocultar linhas de cálculo -->
+      <button id="toggleLinhasBtn" class="btn-toggle-linhas">Mostrar/Ocultar Linhas</button>
+      <!-- Linhas de cálculo que podem ser ocultadas/mostradas -->
+      <div id="linhasCalculo" class="linhas-calculo">
+        <div class="linha-calculo">Linha 1: Exemplo de cálculo</div>
+        <div class="linha-calculo">Linha 2: Exemplo de cálculo</div>
+        <div class="linha-calculo">Linha 3: Exemplo de cálculo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé fixo na parte inferior da tela, texto centralizado e links de navegação -->
+  <div class="rodape">
+    <!-- Primeira linha do rodapé com versão e autoria -->
+    <span>Versão 1.0 • Desenvolvido por 3° Sgt Ana Cristina • © 2025</span>
+    <!-- Segunda linha do rodapé com o setor responsável -->
+    <small>Diretoria de Assistência ao Pessoal</small>
+    <!-- Terceira linha do rodapé com links de navegação -->
+    <div class="rodape-links">
+      <a href="#sobre">Sobre</a> |
+      <a href="#privacidade">Política de Privacidade</a> |
+      <a href="#termos">Termos de Uso</a> |
+      <a href="#contato">Contato</a>
+    </div>
+  </div>
+
+  <!-- Importa o arquivo de scripts JavaScript -->
   <script src="script.js"></script>
-</body>
-</html>
