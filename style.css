@@ -1,230 +1,193 @@
-/* Fonte padrão e cor de fundo do site */
+/* 🌐 Estilo geral da página */
 body {
-  font-family: 'ROBOTO', sans-serif;
-  background-color: #f0f2f5;
   margin: 0;
-  padding: 0;
-}
-
-/* Logo DAP à esquerda da faixa superior */
-.logo-dap {
-  height: 52px;
-  margin-right: 18px;
-  margin-left: 24px;
-  align-self: center;
-  margin-top: -12px; /* Sobe a imagem */
-}
-
-/* Logo DGP à direita da faixa superior */
-.logo-dgp {
-  height: 54px;
-  margin-left: 18px;
-  margin-right: 24px;
-  align-self: center;
-  margin-top: -12px; /* Sobe a imagem */
-}
-
-/* Faixa superior azul com logos e título centralizado */
-.faixa-superior {
-  display: flex;
-  justify-content: space-between; /* DAP à esquerda, DGP à direita */
-  align-items: center;
-  flex-direction: row;
-  width: 100vw;
-  background-color: #2C68BC;
-  padding: 24px 0 0 0;
-  margin: 0;
-}
-
-/* Título principal da faixa superior */
-.titulo-principal {
-  color: #fff;
-  font-size: 2.2em;
   font-family: 'Roboto', sans-serif;
-  margin: 0;
-  padding-bottom: 18px;
-  font-weight: 500;
+  background-color: #f4f6f9;
+  color: #333;
 }
 
-/* Faixa do menu de navegação logo abaixo da faixa superior */
+/* 🔷 Faixa azul superior com logos e título */
+.faixa-superior {
+  background-color: #2C68BC;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  color: white;
+}
+
+.logo-dap, .logo-dgp {
+  height: 50px;
+}
+
+.titulo-principal {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+/* 🧭 Faixa dos botões de navegação */
 .menu-container {
-  background: #0F4098;
-  border-radius: 0; /* Remove cantos arredondados */
-  box-shadow: none; /* Remove sombra */
-  margin: 0;
-  width: 100vw; /* Ocupa toda a largura da tela */
-  min-height: 40px; /* Faixa mais fina */
+  background-color: #0F4098;
   padding: 10px 0;
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
 }
 
-/* Container dos botões do menu, alinhados à esquerda e com espaçamento */
 .botoes {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: flex-start; /* Alinha à esquerda */
-  padding-left: 24px; /* Espaço da margem esquerda */
+  gap: 10px;
 }
 
-/* Botões do menu com fonte Roboto, cor branca e sombreamento interno */
-.botoes button {
-  padding: 12px 28px;
-  font-size: 12px;
-  font-family: 'Roboto', sans-serif;
+/* 🔘 Botões do menu */
+.menu-btn {
+  background-color: #FFFFFF;
   border: none;
-  border-radius: 6px;
-  background-color: #fff;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
   color: #0F4098;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  box-shadow: 0 6px 18px -8px #0F4098 inset; /* Sombreamento interno inferior */
-  transition: background 0.3s, color 0.3s;
-  font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
-/* Efeito hover nos botões do menu */
-.botoes button:hover {
-  background-color: #e6eefd;
-  color: #2C68BC;
-  box-shadow: 0 8px 24px -10px #2C68BC inset;
+.menu-btn svg {
+  margin-right: 8px;
 }
 
-/* Rodapé fixo na parte inferior da tela, texto centralizado */
-.rodape {
-  width: 100vw;
-  background: #fff;
-  padding: 18px 0 12px 0;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+.menu-btn.active {
+  background-color: #D0E3FA;
+}
+
+/* 📄 Faixa interna de cada aba */
+.faixa-superior-calculo {
+  background-color: #e9edf5;
+  padding: 15px;
   text-align: center;
-  font-size: 10px; /* Fonte Roboto 10 */
-  font-family: 'Roboto', sans-serif;
-  color: #2C68BC; /* Mesma cor para todo o texto */
-  box-shadow: 0 -2px 8px rgba(44,104,188,0.08);
-  z-index: 100;
+  border-bottom: 1px solid #ccc;
 }
 
-/* Linhas do rodapé com mesma fonte e cor */
-.rodape span,
-.rodape small {
+.titulo-calculo {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0F4098;
+}
+
+/* 📦 Conteúdo das abas */
+.conteudo-calculo {
+  padding: 20px;
+  font-size: 15px;
+}
+
+/* 🔄 Botão para mostrar/ocultar linhas */
+.btn-toggle-linhas {
+  background-color: #0F4098;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* 📊 Linhas de cálculo */
+.linhas-calculo .linha-calculo {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* 🧩 Transição suave entre abas */
+.aba {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: none;
+}
+
+.aba.visivel {
   display: block;
-  margin-bottom: 4px;
-  font-weight: 500;
-  font-size: 10px;
-  font-family: 'Roboto', sans-serif;
-  color: #2C68BC;
+  opacity: 1;
 }
 
-/* Linha de links do rodapé */
-.rodape-links {
-  margin-top: 2px; /* Espaço acima dos links */
-  font-size: 10px; /* Tamanho da fonte dos links */
-  font-family: 'Roboto', sans-serif;
-  color: #2C68BC;
+/* 👤 Bloco de cada requerente */
+.requerente-bloco {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
-/* Estiliza cada link individualmente */
+.requerente-bloco input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 8px 0;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 📄 Área de relatório gerado */
+.relatorio {
+  background-color: #fff;
+  padding: 30px;
+  border: 1px solid #ccc;
+  margin: 20px auto;
+  max-width: 700px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.relatorio-item {
+  margin-bottom: 40px;
+}
+
+.relatorio-item h3 {
+  color: #0F4098;
+  margin-bottom: 10px;
+}
+
+.relatorio-item p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+/* 📍 Rodapé institucional */
+.rodape {
+  background-color: #2C68BC;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+}
+
 .rodape-links a {
-  color: #2C68BC;
+  color: #D0E3FA;
   text-decoration: none;
-  margin: 0 4px;
-  font-weight: 500;
-  transition: text-decoration 0.2s;
+  margin: 0 5px;
 }
 
-/* Efeito ao passar o mouse sobre o link */
 .rodape-links a:hover {
   text-decoration: underline;
 }
 
-/* Faixa superior da aba cálculo, igual ao menu inicial */
-.faixa-superior-calculo {
-  width: 100%;
-  background-color: #2C68BC;
-  padding: 18px 0 0 0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Título da aba cálculo */
-.titulo-calculo {
-  color: #fff;
-  font-size: 1.8em;
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-  padding-bottom: 12px;
-  font-weight: 500;
-}
-
-/* Conteúdo da aba cálculo, centralizado e responsivo */
-.conteudo-calculo {
-  background: #0F4098;
-  width: 100%;
-  max-width: 600px; /* Limita largura máxima para telas grandes */
-  margin: 0 auto;   /* Centraliza na tela */
-  min-height: 80px;
-  padding: 20px 16px;
-  box-sizing: border-box;
-  border-radius: 0 0 10px 10px;
-}
-
-/* Botão retangular com cantos arredondados dentro da aba cálculo */
-.btn-toggle-linhas {
-  padding: 10px 24px;
-  font-size: 12px;
-  font-family: 'Roboto', sans-serif;
-  border: none;
-  border-radius: 8px;
-  background-color: #fff;
-  color: #0F4098;
-  cursor: pointer;
-  font-weight: 500;
-  box-shadow: 0 6px 18px -8px #0F4098 inset;
-  margin-bottom: 16px;
-  transition: background 0.3s, color 0.3s;
-  width: 100%;
-  max-width: 300px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Efeito hover no botão de mostrar/ocultar linhas */
-.btn-toggle-linhas:hover {
-  background-color: #e6eefd;
-  color: #2C68BC;
-}
-
-/* Linhas de cálculo */
-.linhas-calculo {
-  margin-top: 8px;
-}
-
-/* Cada linha de cálculo, visual elegante e responsivo */
-.linha-calculo {
-  background: #fff;
-  color: #0F4098;
-  border-radius: 6px;
-  padding: 8px 16px;
-  margin-bottom: 8px;
-  box-shadow: 0 4px 12px -6px #0F4098 inset;
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Responsividade para telas pequenas */
-@media (max-width: 700px) {
-  .conteudo-calculo {
-    max-width: 98vw;
-    padding: 12px 4vw;
+/* 📱 Responsividade leve para telas menores */
+@media (max-width: 600px) {
+  .menu-btn {
+    font-size: 12px;
+    padding: 8px 12px;
   }
-  .btn-toggle-linhas {
-    max-width: 98vw;
+
+  .requerente-bloco input {
+    max-width: 100%;
   }
 }
