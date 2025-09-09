@@ -1,12 +1,65 @@
 /* 🌐 Estilo geral da página */
-body {
+html, body {
+  height: 100%;
   margin: 0;
   font-family: 'Roboto', sans-serif;
   background-color: #f4f6f9;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* 🔷 Faixa azul superior com logos e título */
+/* 🌙 Modo escuro */
+body.dark-mode {
+  background-color: #1c1f26;
+  color: #e0e0e0;
+}
+
+body.dark-mode .faixa-superior,
+body.dark-mode .menu-container {
+  background-color: #0F4098;
+}
+
+body.dark-mode .menu-btn {
+  background-color: #2c2f36;
+  color: #D0E3FA;
+  border-color: #444;
+}
+
+body.dark-mode .menu-btn.active {
+  background-color: #3a3f4d;
+}
+
+body.dark-mode .btn-toggle-linhas.exibir {
+  background-color: #0F4098;
+  color: white;
+}
+
+body.dark-mode .btn-toggle-linhas.ocultar {
+  background-color: #a94442;
+  color: white;
+}
+
+body.dark-mode .campo-flutuante select {
+  background-color: #2c2f36;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+body.dark-mode .campo-flutuante label {
+  background-color: #2c2f36;
+  color: #aaa;
+}
+
+/* 🔲 Container principal */
+.conteudo-principal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔷 Faixa superior com logos e título */
 .faixa-superior {
   background-color: #2C68BC;
   display: flex;
@@ -14,6 +67,7 @@ body {
   justify-content: space-between;
   padding: 10px 20px;
   color: white;
+  transition: background-color 0.4s ease;
 }
 
 .logo-dap, .logo-dgp {
@@ -21,50 +75,57 @@ body {
 }
 
 .titulo-principal {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 600;
   text-align: center;
   flex-grow: 1;
   margin: 0 20px;
 }
 
-/* 🧭 Faixa dos botões de navegação */
+/* 🧭 Menu de navegação */
 .menu-container {
   background-color: #0F4098;
   padding: 10px 0;
   display: flex;
   justify-content: center;
+  transition: background-color 0.4s ease;
 }
 
 .botoes {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 /* 🔘 Botões do menu */
 .menu-btn {
-  background-color: #FFFFFF;
-  border: none;
-  padding: 10px 20px;
-  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 12px 20px;
+  font-size: 15px;
   font-weight: 500;
   color: #0F4098;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
+  gap: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.menu-btn svg {
-  margin-right: 8px;
+.menu-btn:hover {
+  background-color: #f0f4fc;
 }
 
 .menu-btn.active {
   background-color: #D0E3FA;
 }
 
-/* 📄 Faixa interna de cada aba */
+.menu-btn i {
+  font-size: 16px;
+}
+
+/* 📄 Faixa de cada aba */
 .faixa-superior-calculo {
   background-color: #e9edf5;
   padding: 15px;
@@ -74,7 +135,7 @@ body {
 
 .titulo-calculo {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: #0F4098;
 }
@@ -85,27 +146,92 @@ body {
   font-size: 15px;
 }
 
-/* 🔄 Botão para mostrar/ocultar linhas */
+/* 🔘 Botão Exibir/Ocultar com ícone */
 .btn-toggle-linhas {
+  border: none;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-toggle-linhas.exibir {
   background-color: #0F4098;
   color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 10px;
+}
+
+.btn-toggle-linhas.ocultar {
+  background-color: #dd8b88;
+  color: white;
+}
+
+.btn-toggle-linhas:hover {
+  opacity: 0.9;
+}
+
+.btn-toggle-linhas i {
+  font-size: 16px;
+}
+
+/* 🧠 Campo flutuante com rótulo animado */
+.campo-flutuante {
+  position: relative;
+  margin: 20px 0;
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+.campo-flutuante select {
+  width: 100%;
+  padding: 14px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  appearance: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+.campo-flutuante label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 0 6px;
+  color: #666;
+  font-size: 15px;
+  transition: 0.2s ease all;
+  pointer-events: none;
+}
+
+.campo-flutuante select:focus + label,
+.campo-flutuante select:valid + label {
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  color: #0F4098;
+  transform: none;
 }
 
 /* 📊 Linhas de cálculo */
 .linhas-calculo .linha-calculo {
   background-color: #fff;
-  padding: 10px;
-  margin-bottom: 5px;
-  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  font-size: 14px;
 }
 
-/* 🧩 Transição suave entre abas */
+/* 🧩 Transição entre abas */
 .aba {
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -117,63 +243,22 @@ body {
   opacity: 1;
 }
 
-/* 👤 Bloco de cada requerente */
-.requerente-bloco {
-  background-color: #fff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-
-.requerente-bloco input {
-  display: block;
-  width: 100%;
-  max-width: 400px;
-  margin: 8px 0;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* 📄 Área de relatório gerado */
-.relatorio {
-  background-color: #fff;
-  padding: 30px;
-  border: 1px solid #ccc;
-  margin: 20px auto;
-  max-width: 700px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.relatorio-item {
-  margin-bottom: 40px;
-}
-
-.relatorio-item h3 {
-  color: #0F4098;
-  margin-bottom: 10px;
-}
-
-.relatorio-item p {
-  margin: 6px 0;
-  font-size: 15px;
-}
-
 /* 📍 Rodapé institucional */
 .rodape {
   background-color: #2C68BC;
   color: white;
   text-align: center;
-  padding: 15px;
-  font-size: 13px;
+  padding: 20px;
+  font-size: 14px;
+  margin-top: auto;
+  box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
 }
 
 .rodape-links a {
   color: #D0E3FA;
   text-decoration: none;
-  margin: 0 5px;
+  margin: 0 6px;
+  font-weight: 500;
 }
 
 .rodape-links a:hover {
@@ -183,11 +268,27 @@ body {
 /* 📱 Responsividade leve para telas menores */
 @media (max-width: 600px) {
   .menu-btn {
-    font-size: 12px;
-    padding: 8px 12px;
+    font-size: 13px;
+    padding: 10px 14px;
   }
 
-  .requerente-bloco input {
+  .requerente-bloco input,
+  .campo-flutuante select {
     max-width: 100%;
   }
+
+  .btn-toggle-linhas {
+    width: 100%;
+    justify-content: center;
+  }
 }
+
+  .requerente-bloco input,
+  .campo-flutuante select {
+    max-width: 100%;
+  }
+
+  .btn-toggle-linhas {
+    width: 100%;
+    justify-content: center;
+  }
