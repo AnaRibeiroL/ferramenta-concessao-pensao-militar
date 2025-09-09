@@ -1,4 +1,5 @@
-// Navegação entre abas com transição e destaque
+<>
+// 🧭 Navegação entre abas com transição e destaque
 function navegar(abaId, botaoClicado) {
   const loader = document.getElementById("loader");
   loader.style.display = "block";
@@ -49,17 +50,37 @@ function navegar(abaId, botaoClicado) {
   }, 400);
 }
 
-// Executa ao carregar a página
+// 🚀 Executa ao carregar a página
 document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggleLinhasBtn");
   const linhas = document.getElementById("linhasCalculo");
+  const campoPosto = document.getElementById("campoPosto");
+  const darkToggle = document.getElementById("darkModeToggle");
+  const darkIcon = darkToggle?.querySelector("i");
 
-  if (toggleBtn && linhas) {
+  let visivel = false;
+
+  // 🔘 Alternância de exibição das informações de cálculo
+  if (toggleBtn && linhas && campoPosto) {
     toggleBtn.addEventListener("click", () => {
-      linhas.style.display = linhas.style.display === "none" ? "block" : "none";
+      visivel = !visivel;
+
+      linhas.style.display = visivel ? "block" : "none";
+      campoPosto.style.display = visivel ? "block" : "none";
+
+      toggleBtn.classList.toggle("exibir", !visivel);
+      toggleBtn.classList.toggle("ocultar", visivel);
+      toggleBtn.innerHTML = visivel
+        ? `<i class="fas fa-eye-slash"></i> Ocultar Informações do Cálculo da Pensão Militar`
+        : `<i class="fas fa-eye"></i> Exibir Informações do Cálculo da Pensão Militar`;
     });
+
+    // Inicializa como oculto
+    toggleBtn.classList.add("exibir");
+    campoPosto.style.display = "none";
   }
 
+  // 🏠 Botão inicial
   const btnMenuInicial = document.getElementById("btnMenuInicial");
   if (btnMenuInicial) {
     btnMenuInicial.addEventListener("click", () => {
@@ -67,10 +88,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 🌙 Modo escuro persistente
+  const modoSalvo = localStorage.getItem("modoEscuro");
+  if (modoSalvo === "ativo") {
+    document.body.classList.add("dark-mode");
+    if (darkIcon) {
+      darkIcon.classList.remove("fa-moon");
+      darkIcon.classList.add("fa-sun");
+    }
+  }
+
+  if (darkToggle && darkIcon) {
+    darkToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const modoAtivo = document.body.classList.contains("dark-mode");
+
+      darkIcon.classList.toggle("fa-moon", !modoAtivo);
+      darkIcon.classList.toggle("fa-sun", modoAtivo);
+      localStorage.setItem("modoEscuro", modoAtivo ? "ativo" : "inativo");
+    });
+  }
+
+  // 🔄 Restaura campos salvos
   restaurarRequerentes();
 });
 
-// Adiciona um novo bloco de requerente
+// ➕ Adiciona um novo bloco de requerente
 function adicionarRequerente() {
   const container = document.getElementById("listaRequerentes");
   const index = container.children.length + 1;
@@ -88,7 +131,7 @@ function adicionarRequerente() {
   salvarCampoTemporariamente(`cpf${index}`);
 }
 
-// Salva dados localmente durante a sessão
+// 💾 Salva dados localmente durante a sessão
 function salvarCampoTemporariamente(campoId) {
   const campo = document.getElementById(campoId);
   if (!campo) return;
@@ -103,10 +146,12 @@ function salvarCampoTemporariamente(campoId) {
   }
 }
 
-// Restaura campos salvos ao recarregar
+// 🔄 Restaura campos salvos ao recarregar
 function restaurarRequerentes() {
   const container = document.getElementById("listaRequerentes");
-  const camposSalvos = Object.keys(sessionStorage).filter((key) => key.startsWith("nome"));
+  const camposSalvos = Object.keys(sessionStorage).filter((key) =>
+    key.startsWith("nome")
+  );
 
   camposSalvos.forEach((key) => {
     const index = key.replace("nome", "");
@@ -124,7 +169,7 @@ function restaurarRequerentes() {
   });
 }
 
-// Gera documentos Word com base nos dados dos requerentes
+// 📄 Gera documentos Word com base nos dados dos requerentes
 function gerarDocumentosWord() {
   const container = document.getElementById("listaRequerentes");
   const blocos = container.querySelectorAll(".requerente-bloco");
@@ -138,7 +183,6 @@ function gerarDocumentosWord() {
     const nome = bloco.querySelector(`#nome${i + 1}`)?.value || "";
     const cpf = bloco.querySelector(`#cpf${i + 1}`)?.value || "";
 
-    // Validação dos campos
     if (!nome.trim() || !cpf.trim()) {
       alert(`Requerente ${i + 1} está incompleto. Preencha todos os campos.`);
       return;
@@ -148,7 +192,7 @@ function gerarDocumentosWord() {
   });
 }
 
-// Exporta documento Word com base no modelo
+// 📤 Exporta documento Word com base no modelo
 function exportarParaWord(requerente) {
   fetch("modelo-parecer.docx")
     .then((res) => res.arrayBuffer())
@@ -165,7 +209,6 @@ function exportarParaWord(requerente) {
         data: new Date().toLocaleDateString("pt-BR"),
       });
 
-      // Normaliza o nome para o nome do arquivo
       const nomeArquivo = requerente.nome
         .replace(/\s+/g, "_")
         .normalize("NFD")
@@ -173,7 +216,8 @@ function exportarParaWord(requerente) {
 
       const blob = doc.getZip().generate({
         type: "blob",
-        mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        mimeType:
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       });
 
       saveAs(blob, `Parecer_${nomeArquivo}.docx`);
