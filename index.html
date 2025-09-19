@@ -1,146 +1,281 @@
+<!-- ========================================================================
+🧩 FERRAMENTA DE CONCESSÃO DA PENSÃO MILITAR
+========================================================================= -->
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Ferramenta de Concessão de Pensão Militar</title>
+  <meta charset="UTF-8" />
+  <title>Ferramenta de Concessão da Pensão Militar</title>
 
-  <!-- Fonte moderna -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Fonte moderna e legível -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 
-  <!-- Ícones modernos com Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Ícones modernos (FontAwesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <!-- Estilos visuais -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Estilo embutido para altura total e modo escuro -->
-  <style>
-    /* ... (todo o CSS está aqui, mantido sem alterações) ... */
-  </style>
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- 🔲 Container principal -->
-  <div class="conteudo-principal">
 
-    <!-- 🔷 Faixa superior com logos e botão de modo escuro -->
-    <div class="faixa-superior">
-      <img src="imgdap.png" alt="Logo DAP" class="logo-dap">
-      <h1 class="titulo-principal" id="tituloPrincipal">Ferramenta de Concessão da Pensão Militar</h1>
-      <img src="imgDGP.png" alt="Logo DGP" class="logo-dgp">
-      <button id="darkModeToggle" title="Alternar modo escuro" style="background:none;border:none;color:white;font-size:18px;cursor:pointer;">
-        <i class="fas fa-moon"></i>
+<!-- =========================================================================
+  🧩 PARTE 1 — CABEÇALHO FIXO
+  ======================================================================== -->
+
+<header class="faixa-superior">
+    <img src="imgdap.png" alt="Logo DAP" class="logo-dap" />
+    <h1 class="titulo-principal" id="tituloPrincipal">
+      Ferramenta de Concessão da Pensão Militar
+    </h1>
+    <img src="imgDGP.png" alt="Logo DGP" class="logo-dgp" />
+  </header>
+  
+
+<!-- =========================================================================
+🧩 PARTE 2 — MENU DE NAVEGAÇÃO ENTRE ABAS
+========================================================================== -->
+
+    <nav class="menu-container" aria-label="Menu de Navegação">
+    <div class="botoes">
+
+<!-- =========================================================================
+🔘 BOTÃO 1 — ABA MENU INICIAL 
+=========================================================================== -->
+      <button class="menu-btn" data-aba="menuInicial" onclick="navegar('menuInicial', this)">
+        <i class="fa-solid fa-house-chimney"></i> Menu Inicial
+      </button>
+
+<!-- =========================================================================
+🔘 BOTÃO 2 — ABA CÁLCULO DA PENSÃO MILITAR 
+=========================================================================== -->
+      <button class="menu-btn" data-aba="calculoPensao" onclick="navegar('calculoPensao', this)">
+        <i class="fa-solid fa-calculator"></i> Cálculo da Pensão Militar
+      </button>
+
+<!-- =========================================================================
+🔘 BOTÃO 3 — ABA CADASTRO DO INSTITUIDOR 
+=========================================================================== -->
+      <button class="menu-btn" data-aba="cadastroInstituidor" onclick="navegar('cadastroInstituidor', this)">
+        <i class="fa-solid fa-users"></i> Cadastro do Instituidor
+      </button>
+
+<!-- =========================================================================
+🔘 BOTÃO 4 — ABA CADASTRO DOS REQUERENTES 
+=========================================================================== -->
+      <button class="menu-btn" data-aba="cadastrorequerentes" onclick="navegar('cadastrorequerentes', this)">
+        <i class="fa-solid fa-users"></i> Cadastro dos Requerentes
+      </button>
+
+<!-- =========================================================================
+🔘 BOTÃO 5 — PARA LIMPAR OS DADOS PREENCHIDOS PELO USUÁRIO 
+=========================================================================== -->
+      <button class="menu-btn" onclick="abrirModal()">
+        <i class="fa-solid fa-broom"></i> Limpar Dados Preenchidos
       </button>
     </div>
+  </nav>
 
-    <!-- 🧭 Menu de navegação -->
-    <div class="menu-container">
-      <div class="botoes">
 
-    <!--  Botão Menu Inicial -->    
-        <button class="menu-btn active" id="btnMenuInicial" onclick="navegar('menuInicial', this)">
-          <i class="fas fa-home"></i> Menu Inicial
-        </button>
+<!-- ========================================================================
+🧩 PARTE 3 — CONTEÚDO PRINCIPAL DAS ABAS
+========================================================================= -->
 
-    <!--  Botão Cálculo da Pensão Militar -->        
-        <button class="menu-btn" onclick="navegar('calculoPensao', this)">
-          <i class="fas fa-calculator"></i> Cálculo da Pensão Militar
-        </button>
+<main>
 
-    <!--  Botão Cadastro dos Requerentes -->  
-        <button class="menu-btn" onclick="navegar('cadastrorequerentes', this)">
-          <i class="fas fa-user-plus"></i> Cadastro dos Requerentes
-        </button>
-
-    <!--  Botão Gerar Documentos: Análisar se será viável até o fim do Desenvolvimento -->     
-        <button class="menu-btn" onclick="navegar('documentosWord', this)">
-          <i class="fas fa-file-word"></i> Gerar Documentos
-        </button>
-      </div>
-    </div>
-
-    <!-- ⏳ Loader de transição -->
-    <div id="loader" class="loader"></div>
-
-    <!-- 📄 Aba: Menu Inicial -->
-    <div id="menuInicialAba" class="aba visivel">
+<!-- ========================================================================
+📄 ABA 1 — MENU INICIAL 
+========================================================================= -->
+    <section id="menuInicialAba" class="aba visivel">
       <div class="faixa-superior-calculo">
         <h2 class="titulo-calculo">Ferramenta de Concessão da Pensão Militar</h2>
       </div>
+    </section>
 
-    <!-- 📄 Aba: Menu Inicial – Painel de apresentação e orientação inicial da aplicação -->
-      <div class="conteudo-calculo">
-        Bem-vindo à ferramenta de concessão da pensão militar!
-      </div>
-    </div>
 
-    <!-- 📄 Aba: Cálculo da Pensão – Seção responsável cálculo do valor da pensão e definição das cotas individuais dos requerentes -->
-    <div id="calculoPensaoAba" class="aba">
+<!-- ========================================================================
+📄 ABA 2 — CÁLCULO DA PENSÃO MILITAR
+========================================================================= -->
+    <section id="calculoPensaoAba" class="aba" style="display: none">
       <div class="faixa-superior-calculo">
         <h2 class="titulo-calculo">Cálculo e Distribuição da Pensão Militar</h2>
       </div>
+
       <div class="conteudo-calculo">
+
+<!-- =========================================================================
+🔘 BOTÃO 1 — 👁️ EXIBIR/OCULTAR - para mostrar e ocultar campos flutuantes 
+=========================================================================== -->
         <button id="toggleLinhasBtn" class="btn-toggle-linhas exibir">
-          <i class="fas fa-eye"></i> Exibir Informações do Cálculo da Pensão Militar
+          <i class="fa-solid fa-eye"></i> Exibir Informações do Cálculo da Pensão Militar
         </button>
 
+<!--==== CAPOS FLUTUANTES COM LISTA SUSPENSA ====-->
+        <div id="linhasCalculo" class="linhas-calculo" style="display: none">
+          <div class="linha-campos">
 
 
-        <div class="campo-flutuante" id="campoPosto">
-          <select id="postoSelect" required>
-            <option value="" disabled selected hidden></option>
-            <option value="General de Exército">General de Exército</option>
-            <option value="General de Divisão">General de Divisão</option>
-            <option value="General de Brigada">General de Brigada</option>
-            <option value="Coronel">Coronel</option>
-            <option value="Tenente-Coronel">Tenente-Coronel</option>
-            <option value="Major">Major</option>
-            <option value="Capitão">Capitão</option>
-            <option value="Tenente">Tenente</option>
-            <option value="Sargento">Sargento</option>
-            <option value="Cabo">Cabo</option>
-            <option value="Soldado">Soldado</option>
-          </select>
-          <label for="postoSelect">Selecione o Posto/Graduação Real</label>
-        </div>
+          <!--=== CAMPO 1 — Posto/Graduação Real - Integrado a API da Planilha de dados -->
+          <div class="campo-flutuante">
+              <select id="postoSelect" required></select>
+              <label for="postoSelect">Posto/Graduação Real</label>
+          </div>
 
-        <div id="linhasCalculo" class="linhas-calculo" style="display: none;">
-          <div class="linha-calculo">Linha 1: Exemplo de cálculo</div>
-          <div class="linha-calculo">Linha 2: Exemplo de cálculo</div>
-          <div class="linha-calculo">Linha 3: Exemplo de cálculo</div>
+          <!--=== CAMPO 2 — Posto/Graduação dos Proventos - Integrado a API da Planilha de dados -->
+          <div class="campo-flutuante">
+              <select id="proventoSelect" required></select>
+              <label for="proventoSelect">Posto/Graduação dos Proventos</label>
+          </div>
+
+          <!--=== CAMPO 3 — Posto/Graduação do RBGHI - Integrado a API da Planilha de dados -->
+          <div class="campo-flutuante">
+              <select id="rbghiSelect" required></select>
+              <label for="rbghiSelect">Posto/Graduação do RBGHI</label>
+          </div>
+
+          <!--=== CAMPO 4 — Alicação do Acórdão nº 631/2020 -->
+          <div class="campo-flutuante">
+              <select id="acordao631">
+                <option value="" disabled selected hidden></option>
+                <option>Instituidor não aufere proventos correspondentes a posto superior</option>
+                <option>Aplicou-se o disposto no Acórdão nº 631/2020, do Plenário do TCU – 1ª Câmara</option>
+                <option>Não se aplicou o disposto no Acórdão nº 631/2020, do Plenário do TCU – 1ª Câmara</option>
+              </select>
+              <label for="acordao631">Aplicou o Acórdão nº 631/2020?</label>
+          </div>
+
+          <!--=== CAMPO 5 — Alicação do Acórdão nº 2225/2019 -->
+          <div class="campo-flutuante">
+              <select id="acordao2225">
+                <option value="" disabled selected hidden></option>
+                <option>Instituidor não possui remuneração com Base no Soldo do Grau Hierárquico Imediato (RBGHI)</option>
+                <option>Aplicou-se o disposto no Acórdão nº 2.225/2019, do Plenário do TCU – 1ª Câmara</option>
+                <option>Não se aplicou o disposto no Acórdão nº 2.225/2019, do Plenário do TCU – 1ª Câmara</option>
+              </select>
+              <label for="acordao2225">Aplicou o Acórdão nº 2225/2019</label>
+            </div>
+
+          <!--=== CAMPO 6 — Contribuição para a Pensão Militar realizada pelo Instituidor -->
+          <div class="campo-flutuante">
+              <select id="contribuicaoPensao">
+                <option value="" disabled selected hidden></option>
+                <option>mesmo posto</option>
+                <option>um posto acima</option>
+                <option>dois postos acima</option>
+              </select>
+              <label for="contribuicaoPensao">Contribuição para a Pensão Militar</label>
+            </div>
+
+          </div>
         </div>
       </div>
-    </div>
-     <!-- 📄 Aba: Cadastro dos Requerentes -->
-    <div id="cadastrorequerentesAba" class="aba">
+    </section>
+
+<!-- ========================================================================
+📄 ABA 3 — CADASTRO DO INSTITUIDOR
+========================================================================= -->
+
+    <section id="cadastroInstituidorAba" class="aba" style="display: none">
+      <div class="faixa-superior-calculo">
+        <h2 class="titulo-calculo">Cadastro das Informações do Instituidor da Pensão Militar</h2>
+      </div>
+
+<!--==== CAPOS FLUTUANTES ====-->
+
+      <!--=== CAMPO 1 — Nome do Instituidor -->
+      <div class="conteudo-calculo">
+        <div class="campo-flutuante">
+          <input type="text" id="nomeInstituidor" required />
+          <label for="nomeInstituidor">Nome do Instituidor</label>
+        </div>
+
+        <!--=== CAMPO 1 — Posto/Graduação Real - Integrado a API da Planilha de dados -->
+          <div class="campo-flutuante">
+              <select id="postoSelect" required></select>
+              <label for="postoSelect">Posto/Graduação Real</label>
+          </div>
+
+        <div class="campo-flutuante">
+          <select id="postoInstituidorSelect" required></select>
+          <label for="postoInstituidorSelect">Posto/Graduação do Instituidor</label>
+        </div>
+
+        <div class="campo-flutuante">
+          <input type="date" id="dataFalecimento" required />
+          <label for="dataFalecimento">Data de Falecimento do Instituidor</label>
+        </div>
+
+        <div class="campo-flutuante">
+          <select id="tipoObito" required>
+            <option value="" disabled selected hidden></option>
+            <option>Em Serviço Ativo</option>
+            <option>Em Serviço Inativo</option>
+            <option>Em Serviço Especial</option>
+            <option>Em Serviço Temporário</option>
+            <option>Em Serviço de Reserva</option>
+            <option>Em Serviço de Reforma</option>
+            <option>Por Acidente em Serviço</option>
+            <option>Por Acidente Não em Serviço</option>
+            <option>Por Doença em Serviço</option>
+            <option>Por Doença Não em Serviço</option>
+          </select>
+          <label for="tipoObito">Tipo de Óbito do Instituidor</label>
+        </div>
+      </div>
+    </section>
+
+
+
+<!-- ========================================================================
+📄 ABA 4 — CADASTRO DOS REQUERENTES
+========================================================================- -->
+
+    <section id="cadastrorequerentesAba" class="aba" style="display: none">
       <div class="faixa-superior-calculo">
         <h2 class="titulo-calculo">Cadastro dos Requerentes da Pensão Militar</h2>
       </div>
+
       <div class="conteudo-calculo">
-        <!-- Área dinâmica onde os blocos de requerentes serão inseridos -->
         <div id="listaRequerentes"></div>
 
-        <!-- Botões de ação -->
-        <button onclick="adicionarRequerente()">Adicionar Requerente</button>
-        <button onclick="gerarDocumentosWord()">Gerar Documentos Word</button>
+        <button onclick="adicionarRequerente()">
+          <i class="fa-solid fa-plus"></i> Adicionar Requerente
+        </button>
+
+        <button onclick="salvarDadosLocais()">
+          <i class="fa-solid fa-save"></i> Salvar Dados
+        </button>
+
+        <button onclick="gerarDocumentosWord()">
+          <i class="fa-solid fa-file-word"></i> Gerar Documentos Word
+        </button>
+      </div>
+  </section>
+  
+
+<!-- ========================================================================
+MODAL 1 — MODAL DE CONFIRMAÇÃO PARA LIMPAR DADOS PREENCHIDOS
+========================================================================= -->
+
+<div id="modalConfirmacao" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+      <div class="modal-conteudo">
+        <h2 id="modalTitulo">Confirmação</h2>
+        <p>Tem certeza que deseja limpar todos os dados preenchidos?</p>
+        <div class="modal-botoes">
+          <button onclick="confirmarLimpeza()" class="btn-sim">Sim</button>
+          <button onclick="fecharModal()" class="btn-cancelar">Cancelar</button>
+        </div>
       </div>
     </div>
+  </main>
 
-    <!-- 📄 Aba: Documentos Word -->
-    <div id="documentosWordAba" class="aba">
-      <div class="faixa-superior-calculo">
-        <h2 class="titulo-calculo">Documentos Obrigatórios para Concessão da Pensão Militar</h2>
-      </div>
-      <div class="conteudo-calculo">
-        <!-- Conteúdo futuro -->
-        <p>Em breve você poderá visualizar e baixar os documentos gerados automaticamente.</p>
-      </div>
-    </div>
-  </div> <!-- fim da div conteudo-principal -->
+<!-- ========================================================================
+🧩 PARTE 4 — RODAPÉ E WHATSAPP
+========================================================================= -->  
 
-  <!-- 📍 Rodapé institucional -->
-  <div class="rodape">
-    <span>Versão 1.0 • Desenvolvido por 3° Sgt Ana Cristina • © 2025</span><br>
+    <footer class="rodape">
+    <span>Versão 1.0 • Desenvolvido por 3° Sgt Ana Cristina • © 2025</span><br />
     <small>Diretoria de Assistência ao Pessoal</small>
     <div class="rodape-links">
       <a href="#sobre">Sobre</a> |
@@ -148,228 +283,38 @@
       <a href="#termos">Termos de Uso</a> |
       <a href="#contato">Contato</a>
     </div>
-  </div>
-    <!-- 🧠 Script funcional -->
-  <script>
-    // 🧭 Navegação entre abas com transição e destaque
-    function navegar(abaId, botaoClicado) {
-      const loader = document.getElementById("loader");
-      loader.style.display = "block";
+  </footer>
 
-      setTimeout(() => {
-        loader.style.display = "none";
+  <!-- Botão flutuante de WhatsApp -->
+  <a href="https://wa.me/556120355991?text=Olá,%20gostaria%20de%20informações%20sobre%20a%20Ferramenta%20de%20Concessão%20de%20Pensão%20Militar"
+    target="_blank"
+    class="whatsapp-flutuante"
+    title="Fale conosco pelo WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 
-        document.querySelectorAll(".aba").forEach((aba) => {
-          aba.classList.remove("visivel");
-          aba.style.display = "none";
-        });
+<!-- ========================================================================
+🧩 PARTE 5 — BIBLIOTECAS EXTERNAS PARA GERAÇÃO DE DOCUMENTOS 
+========================================================================= -->
 
-        const abaSelecionada = document.getElementById(abaId + "Aba");
-        if (abaSelecionada) {
-          abaSelecionada.style.display = "block";
-          setTimeout(() => {
-            abaSelecionada.classList.add("visivel");
-          }, 10);
-        }
+    <!-- 📦 Bibliotecas externas para geração de documentos Word -->
+    <script src="https://unpkg.com/pizzip@3.0.6/dist/pizzip.min.js"></script>
+    <script src="https://unpkg.com/docxtemplater@3.29.0/build/docxtemplater.js"></script>
+    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 
-        const tituloPrincipal = document.getElementById("tituloPrincipal");
-        switch (abaId) {
-          case "menuInicial":
-            tituloPrincipal.textContent = "Ferramenta de Concessão de Pensão Militar";
-            break;
-          case "calculoPensao":
-            tituloPrincipal.textContent = "Cálculo e Distribuição da Pensão Militar";
-            break;
-          case "cadastrorequerentes":
-            tituloPrincipal.textContent = "Cadastro dos Requerentes da Pensão Militar";
-            break;
-          case "documentosWord":
-            tituloPrincipal.textContent = "Documentos Obrigatórios da Geração do Direito à Pensão Militar";
-            break;
-        }
+<!-- ========================================================================
+🧩 PARTE 6 — SCRIPT PERSONALIZADO PARA FUNCIONALIDADES 
+========================================================================= -->
 
-        document.querySelectorAll(".menu-btn").forEach((btn) => {
-          btn.classList.remove("active");
-          btn.style.backgroundColor = "#FFFFFF";
-        });
+    <script src="script.js"></script>
 
-        botaoClicado.classList.add("active");
-        botaoClicado.style.backgroundColor = "#D0E3FA";
-      }, 400);
-    }
+<!-- ========================================================================
+🧩 PARTE 7 — ENCERRAMENTO DA PÁGINA 
+========================================================================= -->
 
-    // 🚀 Inicialização ao carregar a página
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggleBtn = document.getElementById("toggleLinhasBtn");
-      const linhas = document.getElementById("linhasCalculo");
-      const campoPosto = document.getElementById("campoPosto");
-      const darkToggle = document.getElementById("darkModeToggle");
-      const darkIcon = darkToggle?.querySelector("i");
-
-      let visivel = false;
-
-      // 🔘 Alternância de exibição das informações
-      if (toggleBtn && linhas && campoPosto) {
-        toggleBtn.addEventListener("click", () => {
-          visivel = !visivel;
-          linhas.style.display = visivel ? "block" : "none";
-          campoPosto.style.display = visivel ? "block" : "none";
-
-          toggleBtn.classList.toggle("exibir", !visivel);
-          toggleBtn.classList.toggle("ocultar", visivel);
-          toggleBtn.innerHTML = visivel
-            ? `<i class="fas fa-eye-slash"></i> Ocultar Informações do Cálculo da Pensão Militar`
-            : `<i class="fas fa-eye"></i> Exibir Informações do Cálculo da Pensão Militar`;
-        });
-
-        toggleBtn.classList.add("exibir");
-        campoPosto.style.display = "none";
-      }
-
-      // 🌙 Modo escuro persistente
-      const modoSalvo = localStorage.getItem("modoEscuro");
-      if (modoSalvo === "ativo") {
-        document.body.classList.add("dark-mode");
-        if (darkIcon) {
-          darkIcon.classList.remove("fa-moon");
-          darkIcon.classList.add("fa-sun");
-        }
-      }
-
-      if (darkToggle && darkIcon) {
-        darkToggle.addEventListener("click", () => {
-          document.body.classList.toggle("dark-mode");
-          const modoAtivo = document.body.classList.contains("dark-mode");
-
-          darkIcon.classList.toggle("fa-moon", !modoAtivo);
-          darkIcon.classList.toggle("fa-sun", modoAtivo);
-          localStorage.setItem("modoEscuro", modoAtivo ? "ativo" : "inativo");
-        });
-      }
-
-      // 🔄 Restaura campos salvos
-      restaurarRequerentes();
-    });
-
-    // ➕ Adiciona um novo bloco de requerente
-    function adicionarRequerente() {
-      const container = document.getElementById("listaRequerentes");
-      const index = container.children.length + 1;
-
-      const div = document.createElement("div");
-      div.className = "requerente-bloco";
-      div.innerHTML = `
-        <h4>Requerente ${index}</h4>
-        <input type="text" id="nome${index}" placeholder="Nome do requerente">
-        <input type="text" id="cpf${index}" placeholder="CPF do requerente">
-      `;
-      container.appendChild(div);
-
-      salvarCampoTemporariamente(`nome${index}`);
-      salvarCampoTemporariamente(`cpf${index}`);
-    }
-
-    // 💾 Salva dados localmente durante a sessão
-    function salvarCampoTemporariamente(campoId) {
-      const campo = document.getElementById(campoId);
-      if (!campo) return;
-
-      campo.addEventListener("input", () => {
-        sessionStorage.setItem(campoId, campo.value);
-      });
-
-      const valorSalvo = sessionStorage.getItem(campoId);
-      if (valorSalvo) {
-        campo.value = valorSalvo;
-      }
-    }
-
-    // 🔄 Restaura campos salvos ao recarregar
-    function restaurarRequerentes() {
-      const container = document.getElementById("listaRequerentes");
-      const camposSalvos = Object.keys(sessionStorage).filter((key) =>
-        key.startsWith("nome")
-      );
-
-      camposSalvos.forEach((key) => {
-        const index = key.replace("nome", "");
-        const div = document.createElement("div");
-        div.className = "requerente-bloco";
-        div.innerHTML = `
-          <h4>Requerente ${index}</h4>
-          <input type="text" id="nome${index}" placeholder="Nome do requerente">
-          <input type="text" id="cpf${index}" placeholder="CPF do requerente">
-        `;
-        container.appendChild(div);
-
-        salvarCampoTemporariamente(`nome${index}`);
-        salvarCampoTemporariamente(`cpf${index}`);
-      });
-    }
-
-    // 📄 Gera documentos Word com base nos dados dos requerentes
-    function gerarDocumentosWord() {
-      const container = document.getElementById("listaRequerentes");
-      const blocos = container.querySelectorAll(".requerente-bloco");
-
-      if (blocos.length === 0) {
-        alert("Nenhum requerente cadastrado.");
-        return;
-      }
-
-      blocos.forEach((bloco, i) => {
-        const nome = bloco.querySelector(`#nome${i + 1}`)?.value || "";
-        const cpf = bloco.querySelector(`#cpf${i + 1}`)?.value || "";
-
-        if (!nome.trim() || !cpf.trim()) {
-          alert(`Requerente ${i + 1} está incompleto. Preencha todos os campos.`);
-          return;
-        }
-
-        exportarParaWord({ nome, cpf });
-      });
-    }
-
-    // 📤 Exporta documento Word com base no modelo
-    function exportarParaWord(requerente) {
-      fetch("modelo-parecer.docx")
-        .then((res) => res.arrayBuffer())
-        .then((content) => {
-          const zip = new PizZip(content);
-          const doc = new window.docxtemplater(zip, {
-            paragraphLoop: true,
-            linebreaks: true,
-          });
-
-          doc.render({
-            nome: requerente.nome,
-            cpf: requerente.cpf,
-            data: new Date().toLocaleDateString("pt-BR"),
-          });
-
-          const nomeArquivo = requerente.nome
-            .replace(/\s+/g, "_")
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-
-          const blob = doc.getZip().generate({
-            type: "blob",
-            mimeType:
-              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          });
-
-          saveAs(blob, `Parecer_${nomeArquivo}.docx`);
-        })
-        .catch((error) => {
-          console.error("Erro ao gerar documento:", error);
-          alert("Ocorreu um erro ao gerar o documento Word.");
-        });
-    }
-  </script>
-
-  <!-- 📦 Bibliotecas externas para geração de documentos -->
-  <script src="https://unpkg.com/pizzip@3.0.6/dist/pizzip.min.js"></script>
-  <script src="https://unpkg.com/docxtemplater@3.29.0/build/docxtemplater.js"></script>
-  <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
-</body>
+  </body>
 </html>
+
+<!-- ========================================================================
+🧩 FIM DO CÓDIGO
+========================================================================= -->
