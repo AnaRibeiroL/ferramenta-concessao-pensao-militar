@@ -1,378 +1,2245 @@
-/* 🧩 PARTE 1 — Estilo Geral da Página */
-html,
+/* 
+🎨 CSS: SIGPeM – SISTEMA INTEGRADO DE GESTÃO DE PENSÃO MILITAR - EXÉRCITO BRASILEIRO
+
+╔═══════════════════════════════════════════════════════════════════════════════════════════════╗
+║   🎖️  SIGPeM – SISTEMA INTEGRADO DE GESTÃO DE PENSÃO MILITAR - EXÉRCITO BRASILEIRO          
+║   📄 Arquivo: CSS Modernizado v1.0.0                                                              
+║   👩‍💻 Desenvolvido por: 3º Sgt Ana Cristina - DAP                                             
+║   📅 Versão: 1.0.0 -                                                                 
+║   🔄 Última Atualização: Janeiro 2025
+║   
+║   📝 CHANGELOG v1.0.0:
+║      ✅ Grid ajustado para exatamente 3 colunas em desktop
+║      ✅ Rodapé fixo no final da tela (margin-top: auto + flex-shrink: 0)
+║      ✅ Largura do main aumentada para 1900px (comporta 3 colunas)
+║      ✅ Estilos completos para ABA 3 (Requerentes)
+║      ✅ Estilos completos para ABA 4 (Cálculo da Pensão)
+║      ✅ Responsividade total: 3 → 2 → 1 coluna
+║      ✅ Estrutura flexbox otimizada (html/body/main/footer)
+╚═══════════════════════════════════════════════════════════════════════════════════════════════╝
+*/
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 1: 🧼 NORMALIZE + RESET + CONFIGURAÇÕES BÁSICAS
+Base visual e comportamental para todos os navegadores
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 RESET UNIVERSAL
+   Remove margens e espaçamentos padrão de todos os elementos */
+* {
+  margin: 0; /* Remove margens externas */
+  padding: 0; /* Remove espaçamentos internos */
+  box-sizing: border-box; /* Inclui padding e borda no cálculo de largura/altura */
+}
+
+/* 🔹 HTML
+   Define rolagem suave e comportamento tipográfico
+   🆕 v1.0: Adicionado height: 100% para suportar flexbox do rodapé */
+html {
+  scroll-behavior: smooth; /* Rola suavemente ao clicar em âncoras */
+  line-height: 1.15; /* Altura de linha padrão para legibilidade */
+  -webkit-text-size-adjust: 100%; /* Evita zoom automático em iOS */
+  height: 100%; /* 🆕 Necessário para estrutura flexbox do rodapé */
+}
+
+/* 🔹 BODY
+   Define aparência geral do corpo da página
+   🆕 v1.0: Estrutura flexbox para manter rodapé no final */
 body {
-  height: 100%;
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-  background-color: #f4f6f9;
-  color: #333;
-  display: flex;
-  flex-direction: column;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* Fonte principal com fallbacks */
+  line-height: 1.6; /* Espaçamento entre linhas para melhor legibilidade */
+  color: #2c3e50; /* Cor padrão do texto (cinza azulado escuro) */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Gradiente de fundo diagonal */
+  min-height: 100vh; /* Altura mínima igual à altura da viewport */
+  overflow-x: hidden; /* Remove scroll horizontal */
+  display: flex; /* 🆕 v1.0: Ativa flexbox para estrutura vertical */
+  flex-direction: column; /* 🆕 v1.0: Organiza elementos verticalmente */
+  margin: 0; /* 🆕 v1.0: Remove margens para evitar conflitos */
 }
 
-/* 🧩 PARTE 2 — Faixa Superior com Título e Logos */
+/* 🔹 HTML5 display reset
+   Garante que elementos semânticos sejam tratados como blocos */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section {
+  display: block; /* Corrige comportamento em navegadores antigos */
+}
+
+/* 🔹 Títulos
+   Remove margens e herda estilo do body */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0; /* Remove margens */
+  font-size: inherit; /* Herda tamanho da fonte do elemento pai */
+  font-weight: inherit; /* Herda peso da fonte do elemento pai */
+}
+
+/* 🔹 Parágrafos
+   Remove margens padrão */
+p {
+  margin: 0; /* Remove todas as margens */
+}
+
+/* 🔹 Listas
+   Remove marcadores e espaçamentos */
+ol,
+ul {
+  list-style: none; /* Remove bullets/números */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margens */
+}
+
+/* 🔹 Imagens
+   Garante que imagens se ajustem ao container */
+img {
+  max-width: 100%; /* Largura máxima = 100% do container */
+  height: auto; /* Altura automática mantém proporção */
+  display: block; /* Remove espaço extra abaixo da imagem */
+}
+
+/* 🔹 Formulários
+   Herda estilo do body e remove margens */
+button,
+input,
+select,
+textarea {
+  font-family: inherit; /* Herda fonte do body */
+  font-size: inherit; /* Herda tamanho da fonte */
+  line-height: inherit; /* Herda altura da linha */
+  margin: 0; /* Remove margens */
+}
+
+/* 🔹 Botões
+   Remove borda azul e fundo padrão */
+button {
+  border: none; /* Remove borda padrão */
+  background: none; /* Remove fundo padrão */
+  cursor: pointer; /* Cursor vira mãozinha */
+}
+
+/* 🔹 Links
+   Remove sublinhado e herda cor */
+a {
+  text-decoration: none; /* Remove sublinhado */
+  color: inherit; /* Herda cor do elemento pai */
+}
+
+/* 🔹 Tabelas
+   Remove espaçamento entre células */
+table {
+  border-collapse: collapse; /* Une bordas das células */
+  border-spacing: 0; /* Remove espaço entre células */
+}
+
+/* 🔹 Campos desabilitados
+   Reduz opacidade e desativa cursor */
+:disabled {
+  opacity: 0.6; /* Reduz opacidade para 60% */
+  cursor: not-allowed; /* Cursor de "proibido" */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 2: 📌 CABEÇALHO FIXO DINÂMICO
+Estilização da faixa superior com comportamento fixo e efeitos visuais
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Container do cabeçalho
+   Faixa azul no topo com logos e título */
 .faixa-superior {
-  background-color: #2c68bc;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  color: white;
+  background: linear-gradient(135deg, #2c68bc 0%, #1e4a82 100%); /* Fundo com gradiente azul diagonal */
+  padding: 14px 30px; /* Espaço interno: 14px vertical, 30px horizontal */
+  display: flex; /* Layout flexível (horizontal por padrão) */
+  align-items: center; /* Alinha itens verticalmente ao centro */
+  justify-content: space-between; /* Espaça elementos (logo | título | logo) */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra para profundidade: 4px abaixo, 20px desfoque, 15% opacidade */
+  position: sticky; /* Fixa no topo ao rolar */
+  top: 0; /* Distância zero do topo */
+  z-index: 1000; /* Fica acima de outros elementos (menor = atrás, maior = frente) */
+  backdrop-filter: blur(10px); /* Desfoque do fundo (efeito vidro fosco) */
 }
 
+/* 🔹 FUNÇÃO 2: Logo e título do cabeçalho
+   Estilização das imagens (logos DAP e DGP) */
 .logo-dap,
 .logo-dgp {
-  height: 50px;
+  height: 42px; /* Altura fixa das logos */
+  width: auto; /* Largura automática mantém proporção */
+  transition: transform 0.3s ease, filter 0.3s ease; /* Animação suave de 0.3s para transformação e filtro */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); /* Sombra suave: 2px abaixo, 4px desfoque, 10% opacidade */
 }
 
+/* 🔹 FUNÇÃO 3: Efeito hover nas logos
+   Aumenta e eleva logos ao passar o mouse */
+.logo-dap:hover,
+.logo-dgp:hover {
+  transform: scale(1.08) translateY(-2px); /* Aumenta 8% e move 2px para cima */
+}
+
+/* 🔹 FUNÇÃO 4: Título principal do sistema
+   Texto "SIGPeM - Sistema Integrado..." */
 .titulo-principal {
-  font-size: 22px;
-  font-weight: 600;
-  text-align: left;
-  margin: 0 20px;
-  flex-grow: 1;
+  color: white; /* Cor branca */
+  font-size: clamp(
+    1.1rem,
+    2.5vw,
+    1.8rem
+  ); /* Tamanho responsivo: 
+                                               - mínimo: 1.1rem 
+                                               - ideal: 2.5% da largura da tela
+                                               - máximo: 1.8rem */
+  font-weight: 600; /* Peso semi-negrito (400=normal, 700=negrito) */
+  text-align: left; /* Alinha à esquerda */
+  flex: 1; /* Ocupa todo espaço disponível entre as logos */
+  margin-left: 20px; /* Espaçamento de 20px à esquerda */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra no texto: 2px abaixo, 8px desfoque, 20% opacidade */
+  letter-spacing: -0.02em; /* Reduz espaço entre letras (0.02em = 2% do tamanho da fonte) */
+  transition: all 0.3s ease; /* Transição suave para todas as propriedades */
 }
 
-/* 🧩 PARTE 3 — Menu de Navegação em Linha */
+/* 🔹 FUNÇÃO 5: Acessibilidade para título dinâmico
+   Transição suave quando JavaScript altera o título */
+#tituloPrincipal[aria-live='polite'] {
+  transition: opacity 0.3s ease; /* Transição de opacidade ao mudar texto */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 3: 📂 MENU SUSPENSO PRINCIPAL
+Menu horizontal abaixo do cabeçalho com botões de navegação
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Container do menu principal
+   Faixa azul abaixo do cabeçalho */
 .menu-container {
-  background-color: #0f4098;
-  padding: 10px 20px;
+  background: linear-gradient(135deg, #1e4a82 0%, #2c68bc 100%); /* Gradiente invertido (mais escuro → mais claro) */
+  backdrop-filter: blur(16px); /* Desfoque mais intenso que o cabeçalho */
+  padding: 10px 30px; /* Espaço interno menor que o cabeçalho */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  position: sticky; /* Fixa abaixo do cabeçalho */
+  top: 67px; /* Distância do topo = altura do cabeçalho (14px*2 + 42px + ajustes ≈ 67px) */
+  z-index: 999; /* Fica abaixo do cabeçalho (1000), mas acima do conteúdo */
 }
 
-.botoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
+/* 🔹 FUNÇÃO 2: Lista de botões do menu
+   Layout horizontal dos botões (MENU | DOCUMENTOS | LIMPAR PREENCHIMENTO) */
+.menu-suspenso {
+  display: flex; /* Layout horizontal */
+  gap: 25px; /* Espaço de 25px entre os botões */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: flex-start; /* Alinha botões à esquerda */
+  padding-left: 45px; /* Recuo de 45px da borda esquerda */
 }
 
-.menu-btn {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 10px 18px;
-  font-size: 15px;
-  font-weight: 500;
-  color: #0f4098;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.05),
-    0 2px 4px rgba(0, 0, 0, 0.05);
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 4: 🔘 BOTÕES DE DROPDOWN DO MENU
+Estilização dos botões de navegação
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Container de cada dropdown
+   Permite posicionar submenu absolutamente */
+.dropdown {
+  position: relative; /* Cria contexto de posicionamento para submenu */
 }
 
-.menu-btn:hover {
-  background-color: #f0f4fc;
+/* 🔹 FUNÇÃO 2: Botão individual do menu
+   Estilo base dos botões MENU, DOCUMENTOS, LIMPAR */
+.dropdown-btn {
+  background: transparent; /* Fundo transparente (mostra cor do menu-container) */
+  border: none; /* Remove borda */
+  padding: 11px 20px; /* Espaço interno: 11px vertical, 20px horizontal */
+  border-radius: 8px; /* Cantos arredondados */
+  font-size: 14px; /* Tamanho da fonte */
+  font-weight: 600; /* Semi-negrito */
+  cursor: pointer; /* Cursor vira mãozinha */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave com curva de aceleração personalizada cubic-bezier: controla velocidade da animação (0.4, 0, 0.2, 1) = começa devagar, acelera, desacelera */
+  display: flex; /* Layout flexível para ícone + texto */
+  align-items: center; /* Centraliza verticalmente ícone e texto */
+  gap: 10px; /* Espaço de 10px entre ícone e texto */
+  color: #f3f4f6; /* Cor do texto cinza bem claro (quase branco) */
+  font-family: 'Roboto', sans-serif; /* Fonte Roboto */
+  text-transform: none; /* Mantém capitalização original (não converte para maiúsculas) */
 }
 
-.menu-btn.active {
-  background-color: #d0e3fa;
+/* 🔹 FUNÇÃO 3: Efeito hover no botão
+   Visual ao passar mouse sobre o botão */
+.dropdown-btn:hover {
+  background: rgba(44, 104, 188, 0.2); /* Fundo azul semi-transparente (20% opacidade) */
+  transform: translateY(-2px); /* Move 2px para cima */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao passar mouse */
 }
 
-.menu-btn i {
-  font-size: 13px;
+/* 🔹 FUNÇÃO 4: Seta para baixo (chevron)
+   Ícone que indica que há submenu */
+.dropdown-btn::after {
+  content: '\f078'; /* Código Unicode do ícone (Font Awesome: fa-chevron-down) */
+  font-family: 'Font Awesome 6 Free'; /* Família de fonte dos ícones */
+  font-weight: 900; /* Peso necessário para ícones solid do FA */
+  font-size: 11px; /* Tamanho da seta */
+  margin-left: 8px; /* Espaço de 8px à esquerda da seta */
+  transition: transform 0.3s ease; /* Animação suave para rotação */
 }
 
-/* 🧩 PARTE 4 — Faixa Superior das Abas */
-.faixa-superior-calculo {
-  background-color: #e9edf5;
-  padding: 15px 20px;
-  border-bottom: 1px solid #ccc;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 20px
+/* 🔹 FUNÇÃO 5: Rotação da seta quando menu está aberto
+   Seta vira para cima quando dropdown está ativo */
+.dropdown-btn.active::after {
+  transform: rotate(180deg); /* Rotaciona 180 graus (▼ vira ▲) */
 }
 
-.titulo-calculo {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 500;
-  color: #0f4098;
-  text-align: left;
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 5: 📂 MENU SUSPENSO COM SUBITENS
+Submenus que aparecem ao clicar ou passar o mouse sobre um botão
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Container do submenu dropdown
+   Card branco que aparece abaixo do botão */
+.dropdown-menu {
+  position: absolute; /* Posicionamento absoluto em relação ao .dropdown (pai) */
+  top: 100%; /* Alinha logo abaixo do botão (100% = altura total do botão) */
+  left: 0; /* Alinha à esquerda do botão */
+  background: #ffffff; /* Fundo branco */
+  border-radius: 12px; /* Cantos bem arredondados */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); /* Sombra forte para destacar: 8px abaixo, 32px desfoque, 15% opacidade */
+  min-width: 280px; /* Largura mínima de 280px */
+  z-index: 1000; /* Fica acima de outros elementos */
+  display: none; /* Oculto por padrão */
+  flex-direction: column; /* Organiza itens verticalmente */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Borda muito sutil (5% opacidade) */
+  margin-top: 8px; /* Espaço de 8px entre botão e submenu */
 }
 
-/* 🔧 Modal oculto por padrão */
-.modal {
-  display: none; /* Oculta o modal inicialmente */
-  position: fixed; /* Fixa o modal na tela */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* Garante que fique acima de tudo */
+/* 🔹 FUNÇÃO 2: Submenu visível
+   Classe adicionada por JavaScript quando menu é aberto */
+.dropdown-menu.show {
+  display: flex; /* Exibe o menu usando flexbox */
+  animation: slideDown 0.3s ease; /* Aplica animação de entrada */
 }
 
-/* 💬 Conteúdo centralizado do modal */
-.modal-conteudo {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+/* 🔹 FUNÇÃO 3: Animação de deslizar para baixo
+   Submenu aparece deslizando suavemente */
+@keyframes slideDown {
+  from {
+    opacity: 0; /* Começa invisível */
+    transform: translateY(-10px); /* Começa 10px acima da posição final */
+  }
+  to {
+    opacity: 1; /* Termina visível */
+    transform: translateY(0); /* Termina na posição correta */
+  }
 }
 
-/* 🎯 Botões do modal */
-.modal-botoes {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 6: 📂 ITENS DO MENU E SUBMENU
+Estilo dos botões e links dentro dos menus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Item individual do submenu
+   Cada linha clicável dentro do dropdown */
+.dropdown-item {
+  display: block; /* Elemento em bloco (ocupa linha inteira) */
+  width: 100%; /* Largura total do submenu */
+  padding: 14px 20px; /* Espaço interno: 14px vertical, 20px horizontal */
+  font-size: 14px; /* Tamanho da fonte */
+  font-weight: 400; /* Peso normal (não negrito) */
+  color: #1f2937; /* Cinza bem escuro (quase preto) */
+  background-color: #ffffff; /* Fundo branco */
+  border-bottom: 1px solid #f3f4f6; /* Linha divisória cinza muito clara entre itens */
+  cursor: pointer; /* Cursor vira mãozinha */
+  transition: all 0.2s ease; /* Transição mais rápida (0.2s) para feedback imediato */
+  display: flex; /* Layout flex para alinhar ícone e texto */
+  align-items: center; /* Centraliza verticalmente */
+  gap: 12px; /* Espaço de 12px entre ícone e texto */
 }
 
-.btn-sim {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+/* 🔹 FUNÇÃO 2: Ícones dos itens do submenu
+   Ícones à esquerda de cada item */
+.dropdown-item i {
+  font-size: 16px; /* Tamanho do ícone */
+  color: #6b7280; /* Cinza médio */
+  min-width: 20px; /* Largura mínima para alinhar ícones verticalmente */
+  transition: color 0.2s ease; /* Transição de cor */
 }
 
-.btn-cancelar {
-  background-color: #5bc0de;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+/* 🔹 FUNÇÃO 3: Efeito hover no item
+   Visual ao passar mouse sobre item do submenu */
+.dropdown-item:hover {
+  background: linear-gradient(90deg, #f0f7ff 0%, #e0f0ff 100%); /* Gradiente azul bem claro (horizontal) */
+  color: #0f4098; /* Azul escuro */
+  padding-left: 24px; /* Aumenta padding esquerdo (efeito de indentação) */
 }
 
-.btn-sim:hover,
-.btn-cancelar:hover {
-  opacity: 0.9;
+/* 🔹 FUNÇÃO 4: Ícone em hover
+   Ícone muda de cor e aumenta levemente */
+.dropdown-item:hover i {
+  color: #0f4098; /* Azul escuro igual ao texto */
+  transform: scale(1.1); /* Aumenta 10% */
 }
 
-/* 🧩 PARTE 5 — Botão Exibir/Ocultar Responsivo */
-.btn-toggle-linhas {
-  border: none;
-  padding: 10px 18px;
-  font-size: 15px;
-  font-weight: 500;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  max-width: 600px;
-  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.05),
-    0 2px 6px rgba(0, 0, 0, 0.1);
+/* 🔹 FUNÇÃO 5: Remove borda do último item
+   Último item não precisa de linha divisória abaixo */
+.dropdown-menu > .dropdown-item:last-child {
+  border-bottom: none; /* Remove borda inferior */
 }
 
-.btn-toggle-linhas.exibir {
-  background-color: #0f4098;
-  color: white;
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 7: 📂 SUBMENU LATERAL
+Submenus que aparecem ao lado de um item com seta (menu em cascata)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Container do submenu lateral
+   Submenu que aparece ao lado (exemplo: "Gerar Minuta" > "Inicial" / "Complementar") */
+.submenu {
+  display: none; /* Oculto por padrão */
+  flex-direction: column; /* Organiza verticalmente */
+  position: absolute; /* Posicionamento absoluto em relação ao item pai */
+  top: 0; /* Alinha com o topo do item pai */
+  left: 100%; /* Posiciona à direita do item pai (100% = largura total do pai) */
+  background: #ffffff; /* Fundo branco */
+  border-radius: 12px; /* Cantos arredondados */
+  width: max-content; /* Largura ajustada ao conteúdo (não estica) */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Borda sutil */
+  margin-left: 4px; /* Espaço de 4px entre o item pai e o submenu */
+  z-index: 1001; /* Prioridade maior que dropdown principal (1000) */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); /* Sombra igual ao dropdown principal */
 }
 
-.btn-toggle-linhas.ocultar {
-  background-color: #dd8b88;
-  color: white;
+/* 🔹 FUNÇÃO 2: Exibe submenu ao passar mouse no item pai
+   Hover no item pai mostra submenu lateral */
+.dropdown-submenu:hover > .submenu {
+  display: flex; /* Exibe submenu ao passar mouse */
+  animation: slideDown 0.3s ease; /* Animação de entrada (mesma do dropdown principal) */
 }
 
-.btn-toggle-linhas:hover {
-  opacity: 0.9;
+/* 🔹 FUNÇÃO 3: Estilo dos itens dentro do submenu lateral
+   Itens do submenu lateral são menores */
+.submenu .dropdown-item {
+  padding: 12px 20px; /* Padding menor que itens principais (12px vs 14px) */
+  font-size: 13px; /* Fonte ligeiramente menor (13px vs 14px) */
 }
 
-/* 🧩 PARTE 6 — Distribuição dos Campos com CSS Grid */
-.linhas-calculo {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* 🔹 FUNÇÃO 4: Hover nos itens do submenu lateral */
+.submenu .dropdown-item:hover {
+  background: linear-gradient(90deg, #f0f7ff 0%, #e0f0ff 100%); /* Mesmo gradiente azul claro */
+  color: #0f4098; /* Azul escuro */
 }
 
-/* Linha 1: Postos */
-.linha-campos {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+/* 🔹 FUNÇÃO 5: Remove borda do último item do submenu lateral */
+.submenu .dropdown-item:last-child {
+  border-bottom: none; /* Remove linha divisória do último item */
 }
 
-/* Linha 2: Acórdãos */
-.linha-acordaos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+/* 🔹 FUNÇÃO 6: Container do item com submenu lateral
+   Item que possui submenu lateral (tem seta à direita) */
+.dropdown-submenu {
+  position: relative; /* Cria contexto de posicionamento para submenu */
+  display: flex; /* Layout flex */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: space-between; /* Espaça texto e seta */
+  width: 100%; /* Largura total */
 }
 
-/* 🧩 PARTE 7 — Campos Flutuantes com Rótulo Animado */
+/* 🔹 FUNÇÃO 7: Seta indicadora de submenu lateral
+   Seta à direita que indica que há submenu (►) */
+.submenu-arrow {
+  font-size: 0.8rem; /* Tamanho pequeno (80% do tamanho base) */
+  color: #6b7280; /* Cinza médio */
+  margin-left: auto; /* Empurra seta para a direita */
+  display: flex; /* Layout flex */
+  align-items: center; /* Centraliza verticalmente */
+  padding-left: 8px; /* Espaço de 8px à esquerda */
+  transition: color 0.2s ease; /* Transição de cor */
+}
+
+/* 🔹 FUNÇÃO 8: Hover na seta do submenu lateral
+   Seta muda de cor ao passar mouse no item */
+.dropdown-submenu:hover .submenu-arrow {
+  color: #0f4098; /* Azul escuro */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 7.1: ♿ ACESSIBILIDADE
+Estilo de foco para navegação por teclado
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Borda de foco visível
+   Ao navegar com teclado (Tab), mostra borda azul ao redor do elemento focado */
+.dropdown-btn:focus,
+.dropdown-item:focus {
+  outline: 2px solid #2c68bc; /* Borda azul de 2px ao focar */
+  outline-offset: 2px; /* Espaço de 2px entre elemento e borda */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 8: 📁 ESTRUTURA PRINCIPAL DAS ABAS
+Define o layout e o comportamento visual das seções exibidas por abas
+🆕 v2.1: Ajustes para rodapé fixo e largura aumentada para 3 colunas
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+┌─────────────────────────────┐
+│      CABEÇALHO (fixo)       │
+├─────────────────────────────┤
+│         MENU (fixo)         │
+├─────────────────────────────┤
+│                             │
+│     CONTEÚDO PRINCIPAL      │
+│    (flex: 1 0 auto)         │ ← Ocupa todo espaço disponível
+│    Cresce verticalmente     │
+│                             │
+├─────────────────────────────┤
+│    RODAPÉ (margin-top:auto) │ ← Sempre no final!
+└─────────────────────────────┘
+*/
+
+/* 🔹 FUNÇÃO 1: Área principal da página
+   Container principal onde as abas são exibidas
+   🆕 v1.0: Largura aumentada de 1750px → 1900px para comportar 3 colunas
+   🆕 v1.0: Adicionado flex: 1 0 auto para empurrar rodapé para baixo */
+main {
+  max-width: 1900px; /* 🆕 Largura máxima aumentada (antes: 1750px) - comporta 3 colunas confortavelmente */
+  margin: 0 auto; /* Centraliza horizontalmente */
+  padding: 20px; /* Espaço interno ao redor do conteúdo */
+  flex: 1 0 auto; /* 🆕 v1.0: flex-grow: 1 (ocupa espaço disponível)
+  flex-shrink: 0 (não encolhe)
+  flex-basis: auto (tamanho automático)
+  → Empurra rodapé para baixo mesmo com pouco conteúdo */
+  width: 100%; /* 🆕 v1.0: Garante largura total */
+}
+
+/* 🔹 FUNÇÃO 2: Cada aba individual
+   Container de cada seção do sistema (Menu Inicial, Cadastro, etc) */
+.aba {
+  display: none; /* Oculta todas as abas por padrão */
+  animation: fadeIn 0.3s ease; /* Animação suave ao aparecer */
+}
+
+/* 🔹 FUNÇÃO 3: Aba visível
+   Classe adicionada por JavaScript para mostrar aba ativa */
+.aba.visivel {
+  display: block; /* Exibe a aba que tem classe "visivel" */
+}
+
+/* 🔹 FUNÇÃO 4: Animação de entrada (fade in)
+   Aba aparece suavemente com leve movimento para cima */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Começa invisível */
+    transform: translateY(20px); /* Começa 20px abaixo da posição final */
+  }
+  to {
+    opacity: 1; /* Termina visível */
+    transform: translateY(0); /* Termina na posição correta */
+  }
+}
+
+/* 🔹 FUNÇÃO 5: Faixa superior das abas
+   Cabeçalho branco acima do conteúdo da aba (geralmente com título) */
+.faixa-superior-abas {
+  background: rgba(255, 255, 255, 0.95); /* Branco com 95% opacidade (5% transparente) */
+  padding: 18px 25px; /* Espaço interno: 18px vertical, 25px horizontal */
+  border-radius: 15px 15px 0 0; /* Cantos arredondados apenas no topo */
+  text-align: center; /* Centraliza texto */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Sombra leve: 2px abaixo, 10px desfoque, 8% opacidade */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Borda sutil (5% opacidade) */
+}
+
+/* 🔹 FUNÇÃO 6: Título das abas
+   Título na faixa superior (ex: "Cadastro do Instituidor") */
+.titulo-abas {
+  color: #2c3e50; /* Cinza azulado escuro */
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem); /* Tamanho responsivo: mín 1.2rem, ideal 2.5vw, máx 1.7rem */
+  font-weight: 600; /* Semi-negrito */
+  text-align: center; /* Centraliza texto */
+  margin: 0; /* Remove margens */
+  letter-spacing: -0.01em; /* Reduz levemente o espaço entre letras */
+}
+
+/* 🔹 FUNÇÃO 7: Área de conteúdo da aba
+   Container branco principal onde ficam os formulários e conteúdo */
+.conteudo-abas {
+  background: rgba(255, 255, 255, 0.98); /* Branco quase opaco (98%) */
+  backdrop-filter: blur(20px); /* Desfoque intenso do fundo (efeito vidro fosco) */
+  border-radius: 0 0 15px 15px; /* Cantos arredondados apenas na parte inferior */
+  padding: 30px; /* Espaço interno generoso */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra para profundidade */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Borda sutil */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 9: 🔘 BOTÃO TOGGLE EXIBIR/OCULTAR - DESIGN PREMIUM MODERNIZADO
+Botão expansível com animações suaves e efeitos visuais elegantes
+Usado para expandir/recolher seções de formulários
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Estilo base do botão toggle
+   Botão azul com gradiente e efeitos sofisticados */
+.btn-exibir-ocultar {
+  width: 100%; /* Ocupa largura total do container */
+  margin-bottom: 25px; /* Espaço de 25px abaixo do botão */
+  padding: 18px 28px; /* Espaço interno: 18px vertical, 28px horizontal */
+  background: linear-gradient(135deg, #2c68bc 0%, #1e4a82 100%); /* Gradiente azul diagonal */
+  color: white; /* Texto branco */
+  border: none; /* Remove borda padrão */
+  border-radius: 14px; /* Cantos bem arredondados */
+  font-size: 16px; /* Tamanho da fonte */
+  font-weight: 600; /* Semi-negrito */
+  letter-spacing: 0.3px; /* Espaçamento entre letras (melhora legibilidade) */
+  cursor: pointer; /* Cursor vira mãozinha */
+  box-shadow: 0 6px 20px rgba(44, 104, 188, 0.25),
+    /* Sombra azul: 6px abaixo, 20px desfoque, 25% opacidade */ 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra preta: 2px abaixo, 6px desfoque, 10% opacidade */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave com curva personalizada (0.4s) */
+  display: flex; /* Layout flexível */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  position: relative; /* Cria contexto para pseudo-elemento ::before */
+  overflow: hidden; /* Esconde efeito de brilho que ultrapassar */
+  border: 2px solid transparent; /* Borda invisível (para transição suave no hover) */
+}
+
+/* 🔹 FUNÇÃO 2: Efeito de brilho deslizante (shimmer)
+   Pseudo-elemento que cria brilho que desliza da esquerda para direita */
+.btn-exibir-ocultar::before {
+  content: ''; /* Elemento vazio (necessário para pseudo-elemento existir) */
+  position: absolute; /* Posicionamento absoluto sobre o botão */
+  top: 0; /* Alinha no topo */
+  left: -100%; /* Começa fora da tela à esquerda (escondido) */
+  width: 100%; /* Mesma largura do botão */
+  height: 100%; /* Mesma altura do botão */
+  background: linear-gradient(
+    90deg,
+    /* Gradiente horizontal */ transparent,
+    /* Começa transparente */ rgba(255, 255, 255, 0.25),
+    /* Centro: branco 25% opaco */ transparent /* Termina transparente */
+  ); /* Cria efeito de "faixa de luz" */
+  transition: left 0.6s ease; /* Transição suave ao deslizar (0.6s) */
+  pointer-events: none; /* Não interfere em cliques (permite clicar através dele) */
+}
+
+/* 🔹 FUNÇÃO 3: Efeito hover completo
+   Visual ao passar mouse: cor mais escura, eleva, borda branca, brilho desliza */
+.btn-exibir-ocultar:hover {
+  background: linear-gradient(135deg, #1e4a82 0%, #153863 100%); /* Gradiente mais escuro */
+  transform: translateY(-4px) scale(1.01); /* Move 4px para cima + aumenta 1% */
+  box-shadow: 0 10px 30px rgba(44, 104, 188, 0.4), /* Sombra azul mais forte */ 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra preta mais forte */
+  border-color: rgba(255, 255, 255, 0.2); /* Borda branca semi-transparente aparece */
+}
+
+/* 🔹 FUNÇÃO 4: Ativa animação do brilho no hover
+   Faz o brilho deslizar da esquerda para direita */
+.btn-exibir-ocultar:hover::before {
+  left: 100%; /* Move brilho para fora da tela à direita */
+}
+
+/* 🔹 FUNÇÃO 5: Efeito ao clicar (active)
+   Leve compressão visual ao pressionar */
+.btn-exibir-ocultar:active {
+  transform: translateY(-1px) scale(0.99); /* Move 1px para cima + reduz 1% */
+  box-shadow: 0 4px 15px rgba(44, 104, 188, 0.3), 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombras menores */
+  transition: all 0.15s ease; /* Transição mais rápida (0.15s) para feedback imediato */
+}
+
+/* 🔹 FUNÇÃO 6: Foco via teclado (acessibilidade)
+   Borda azul ao focar com Tab */
+.btn-exibir-ocultar:focus {
+  outline: none; /* Remove outline padrão do navegador */
+  box-shadow: 0 6px 20px rgba(44, 104, 188, 0.25), 0 2px 6px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(44, 104, 188, 0.2); /* Adiciona anel de foco azul de 4px */
+  border-color: rgba(255, 255, 255, 0.3); /* Borda branca mais visível */
+}
+
+/* 🔹 FUNÇÃO 7: Ícones de seta (chevron) posicionados à esquerda
+   Setas ▼ (fechado) e ▲ (aberto) */
+.btn-exibir-ocultar .fa-chevron-down,
+.btn-exibir-ocultar .fa-chevron-up {
+  position: absolute; /* Posiciona absolutamente dentro do botão */
+  left: 28px; /* 28px da borda esquerda */
+  font-size: 15px; /* Tamanho da seta */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave */
+}
+
+/* 🔹 FUNÇÃO 8: Animação sutil das setas no hover
+   Seta para baixo desce, seta para cima sobe */
+.btn-exibir-ocultar:hover .fa-chevron-down {
+  transform: translateY(2px); /* Move 2px para baixo */
+}
+
+.btn-exibir-ocultar:hover .fa-chevron-up {
+  transform: translateY(-2px); /* Move 2px para cima */
+}
+
+/* 🔹 FUNÇÃO 9: Container do conteúdo interno do botão
+   Agrupa ícone + texto no centro */
+.btn-conteudo {
+  display: inline-flex; /* Flexbox inline */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  width: 100%; /* Ocupa largura total */
+  gap: 14px; /* Espaço de 14px entre ícone e texto */
+}
+
+/* 🔹 FUNÇÃO 10: Ícone principal do botão
+   Ícone à esquerda do texto (ex: 📋, ⏰, 🛡️) */
+.btn-conteudo i {
+  font-size: 17px; /* Tamanho do ícone */
+  flex-shrink: 0; /* Impede que seja comprimido */
+  transition: transform 0.3s ease; /* Transição para animação */
+}
+
+/* 🔹 FUNÇÃO 11: Texto do botão
+   Texto principal (ex: "Informações Cadastrais do Instituidor") */
+.btn-conteudo span {
+  flex-grow: 1; /* Ocupa todo espaço disponível */
+  text-align: center; /* Centraliza texto */
+  white-space: nowrap; /* Impede quebra de linha */
+  overflow: hidden; /* Esconde texto que ultrapassar */
+  text-overflow: ellipsis; /* Adiciona "..." se texto for muito longo */
+}
+
+/* 🔹 FUNÇÃO 12: Animação de pulsar (sutil)
+   Ícone pulsa suavemente ao passar mouse */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1); /* Tamanho normal */
+  }
+  50% {
+    transform: scale(1.02); /* Aumenta 2% no meio da animação */
+  }
+}
+
+/* 🔹 FUNÇÃO 13: Aplica animação de pulsar no ícone
+   Ícone pulsa continuamente ao passar mouse no botão */
+.btn-exibir-ocultar:hover .btn-conteudo i {
+  animation: pulse 1.5s infinite; /* Animação: 1.5s de duração, infinita */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 9.1: 🙈 CLASSE HIDDEN - OCULTA ELEMENTOS
+Classe utilitária para JavaScript mostrar/ocultar elementos
+⚠️ CRÍTICO: Necessário para funcionamento dos toggles
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO: Oculta completamente o elemento
+   !important: Força aplicação sobre outros estilos (alta prioridade) */
+.hidden {
+  display: none !important; /* Elemento não aparece e não ocupa espaço na página */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 9.2: 📱 RESPONSIVIDADE - BOTÃO TOGGLE
+Adaptações para tablets e celulares
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 TABLETS (até 768px) */
+@media screen and (max-width: 768px) {
+  .btn-exibir-ocultar {
+    padding: 16px 24px; /* Reduz padding */
+    font-size: 15px; /* Fonte menor */
+    border-radius: 12px; /* Cantos menos arredondados */
+  }
+
+  .btn-exibir-ocultar .fa-chevron-down,
+  .btn-exibir-ocultar .fa-chevron-up {
+    left: 24px; /* Ajusta posição da seta */
+    font-size: 14px; /* Seta menor */
+  }
+
+  .btn-conteudo {
+    gap: 12px; /* Reduz espaço entre ícone e texto */
+  }
+
+  .btn-conteudo i {
+    font-size: 16px; /* Ícone menor */
+  }
+}
+
+/* 🔹 SMARTPHONES (até 480px) */
+@media screen and (max-width: 480px) {
+  .btn-exibir-ocultar {
+    padding: 14px 20px; /* Padding ainda menor */
+    font-size: 14px; /* Fonte menor */
+    margin-bottom: 20px; /* Menos espaço abaixo */
+    border-radius: 10px; /* Cantos mais suaves */
+  }
+
+  .btn-exibir-ocultar .fa-chevron-down,
+  .btn-exibir-ocultar .fa-chevron-up {
+    left: 20px; /* Ajusta posição */
+    font-size: 13px; /* Seta ainda menor */
+  }
+
+  .btn-conteudo {
+    gap: 10px; /* Menor espaço entre elementos */
+  }
+
+  .btn-conteudo i {
+    font-size: 15px; /* Ícone ainda menor */
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 10: 🔲 CAMPOS PADRONIZADOS - Sistema de formulários com rótulos flutuantes
+Sistema completo de inputs com labels flutuantes, efeitos visuais sofisticados e feedback interativo
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Container do campo com label flutuante
+   Wrapper que contém input + label */
 .campo-flutuante {
-  position: relative;
+  position: relative; /* Cria contexto para label posicionada absolutamente */
+  margin-bottom: 28px; /* Espaço entre campos */
 }
 
-.campo-flutuante select,
+/* 🔹 FUNÇÃO 2: Estilo base dos campos (input, select, textarea)
+   Campos com bordas arredondadas e sombra sutil */
 .campo-flutuante input,
+.campo-flutuante select,
 .campo-flutuante textarea {
-  width: 100%;
-  padding: 12px 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff;
-  appearance: none;
-  transition: border-color 0.3s ease;
+  width: 100%; /* Largura total do container */
+  padding: 16px 20px; /* Espaço interno: 16px vertical, 20px horizontal */
+  border: 2px solid #e1e8ed; /* Borda sólida cinza clara de 2px */
+  border-radius: 12px; /* Cantos bem arredondados */
+  font-size: 16px; /* Tamanho da fonte (evita zoom no iOS) */
+  background: #ffffff; /* Fundo branco */
+  color: #2c3e50; /* Cor do texto */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave com curva personalizada */
+  font-family: 'Roboto', sans-serif; /* Fonte consistente */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* Sombra muito sutil para profundidade */
 }
 
-/* 🔍 Estilo para lista suspensa com faixa de busca */
-.campo-flutuante select {
-  font-family: "Roboto", sans-serif;
-  background-image: linear-gradient(to right, #fff, #f4f6f9);
+/* 🔹 FUNÇÃO 3: Placeholder invisível por padrão
+   Placeholder só aparece quando campo está focado */
+.campo-flutuante input::placeholder,
+.campo-flutuante textarea::placeholder {
+  opacity: 0; /* Invisível (necessário para CSS :placeholder-shown funcionar) */
+  transition: opacity 0.3s ease; /* Transição suave */
 }
 
-/* ✨ Rótulo flutuante */
-.campo-flutuante label {
-  position: absolute;
-  left: 12px;
-  top: 14px;
-  font-size: 16px;
-  color: #666;
-  pointer-events: none;
-  transition: 0.2s ease all;
-  background-color: #fff;
-  padding: 0 4px;
+/* 🔹 FUNÇÃO 4: Placeholder visível ao focar
+   Mostra placeholder quando usuário clica no campo */
+.campo-flutuante input:focus::placeholder,
+.campo-flutuante textarea:focus::placeholder {
+  opacity: 0.5; /* Semi-transparente (50%) */
+  color: #8492a6; /* Cinza médio */
 }
 
-/* 🔼 Quando o campo está preenchido ou em foco */
-.campo-flutuante input:focus + label,
-.campo-flutuante input:not(:placeholder-shown) + label,
-.campo-flutuante textarea:focus + label,
-.campo-flutuante textarea:not(:placeholder-shown) + label,
-.campo-flutuante select:focus + label,
-.campo-flutuante select:valid + label {
-  top: -8px;
-  left: 10px;
-  font-size: 12px;
-  color: #4a90e2;
-}
-
-/* 🔷 Destaque visual para campo preenchido */
+/* 🔹 FUNÇÃO 5: Efeito de foco nos campos
+   Visual ao clicar/focar: borda azul, sombra, leve elevação */
 .campo-flutuante input:focus,
 .campo-flutuante select:focus,
-.campo-flutuante input.filled,
-.campo-flutuante select.filled {
-  border: 2px solid #4a90e2;
+.campo-flutuante textarea:focus {
+  outline: none; /* Remove outline padrão do navegador (azul/laranja) */
+  border-color: #2c68bc; /* Borda azul institucional */
+  box-shadow: 0 0 0 4px rgba(44, 104, 188, 0.1),
+    /* Anel de foco azul: 4px, 10% opacidade */ 0 4px 12px rgba(44, 104, 188, 0.15); /* Sombra azul: 4px abaixo, 12px desfoque, 15% opacidade */
+  transform: translateY(-1px); /* Move 1px para cima */
 }
 
-/* 🧠 Dica abaixo do campo */
-.dica-campo {
-  display: block;
-  font-size: 13px;
-  color: #666;
-  margin-top: 4px;
-  margin-left: 4px;
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 10.1: 🔲 LABEL FLUTUANTE - POSICIONAMENTO E ANIMAÇÃO
+Labels que "flutuam" para cima quando campo é preenchido
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Posicionamento inicial da label
+   Label começa dentro do campo (como placeholder) */
+.campo-flutuante label {
+  position: absolute; /* Posicionamento absoluto dentro do .campo-flutuante */
+  top: 50%; /* Centro vertical do campo */
+  left: 20px; /* 20px da borda esquerda */
+  transform: translateY(-50%); /* Centraliza verticalmente (compensa os 50% do top) */
+  font-size: 16px; /* Mesmo tamanho do texto do input */
+  color: #8492a6; /* Cinza médio */
+  pointer-events: none; /* Não intercepta cliques (permite clicar através dela) */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave de todas as propriedades */
+  background: transparent; /* Fundo transparente inicialmente */
+  padding: 0 6px; /* Padding horizontal para espaço ao redor do texto */
+  font-weight: 400; /* Peso normal */
+  z-index: 1; /* Fica acima do input */
 }
 
-/* 🧩 PARTE 8 — Rodapé Institucional */
-/* Corpo da página ocupa 100% da altura */
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
+/* 🔹 FUNÇÃO 2: Label flutuante (estado ativo)
+Quando campo está focado ou preenchido, label sobe e diminui
+
+Seletores que ativam o estado flutuante:
+  - input:focus → Quando campo está focado
+  - input:not(:placeholder-shown) → Quando placeholder não está visível (campo preenchido)
+  - input.has-value → Classe JavaScript para forçar estado flutuante
+  - select:not([value='']) → Select com valor selecionado
+  - textarea:not(:placeholder-shown) → Textarea preenchida */
+.campo-flutuante input:focus + label,
+.campo-flutuante input:not(:placeholder-shown) + label,
+.campo-flutuante input.has-value + label,
+.campo-flutuante select:focus + label,
+.campo-flutuante select:not([value='']):valid + label,
+.campo-flutuante select.has-value + label,
+.campo-flutuante textarea:focus + label,
+.campo-flutuante textarea:not(:placeholder-shown) + label,
+.campo-flutuante textarea.has-value + label {
+  top: 0; /* Move para o topo da borda do campo */
+  left: 16px; /* Ajusta posição horizontal */
+  font-size: 12px; /* Reduz tamanho (16px → 12px) */
+  color: #2c68bc; /* Muda para azul */
+  background: #ffffff; /* Fundo branco sólido (cobre a borda do campo) */
+  padding: 0 8px; /* Aumenta padding horizontal (6px → 8px) */
+  font-weight: 600; /* Semi-negrito (400 → 600) */
+  transform: translateY(-50%); /* Mantém centralização vertical na borda */
+  border-radius: 4px; /* Cantos levemente arredondados */
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.8); /* Sombra branca para destacar */
 }
 
-/* Conteúdo principal ocupa o espaço disponível */
-main {
-  flex: 1;
+/* 🔹 FUNÇÃO 3: Label flutuante com autocomplete do navegador
+   Navegadores preenchem automaticamente (Chrome, Firefox, etc) */
+.campo-flutuante input:-webkit-autofill + label,
+.campo-flutuante input:-webkit-autofill:hover + label,
+.campo-flutuante input:-webkit-autofill:focus + label {
+  top: 0; /* Move para o topo */
+  left: 16px; /* Ajusta posição */
+  font-size: 12px; /* Reduz tamanho */
+  color: #2c68bc; /* Azul */
+  background: #ffffff; /* Fundo branco */
+  padding: 0 8px; /* Padding horizontal */
+  font-weight: 600; /* Semi-negrito */
+  transform: translateY(-50%); /* Centraliza na borda */
+  border-radius: 4px; /* Cantos arredondados */
 }
 
-/* Rodapé */
-.rodape {
-  background-color: #2c68bc;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  font-size: 14px;
-  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
-  position: relative; /* pode manter */
-  margin-top: 0;      /* remover auto */
+/* ESTADO DESABILITADO */
+.campo-flutuante input:disabled,
+.campo-flutuante select:disabled,
+.campo-flutuante textarea:disabled {
+  background-color: #f5f7fa; /* Fundo cinza claro */
+  color: #8492a6; /* Texto cinza */
+  cursor: not-allowed; /* Cursor de proibido */
+  opacity: 0.7; /* Opacidade reduzida */
+  border-color: #e1e8ed; /* Borda cinza */
 }
 
-.rodape-links a {
-  color: #d0e3fa;
-  text-decoration: none;
-  margin: 0 6px;
-  font-weight: 500;
+.campo-flutuante input:disabled + label,
+.campo-flutuante select:disabled + label,
+.campo-flutuante textarea:disabled + label {
+  color: #8492a6; /* Label cinza */
+  cursor: not-allowed; /* Cursor de proibido */
 }
 
-.rodape-links a:hover {
-  text-decoration: underline;
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 11: 🧊 GRID RESPONSIVO PARA CAMPOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.campos-grid {
+  display: grid; /* Layout grid */
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px; /* Espaçamento de 24px entre campos */
+  margin-bottom: 30px; /* Espaçamento abaixo do grid */
+  background: white; /* Fundo branco */
+  border-radius: 15px; /* Cantos arredondados */
+  padding: 25px; /* Espaçamento interno de 20px */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra simples */
+  border-left: 4px solid #b8cbe6; /* Borda esquerda azul */
 }
 
-/* Botão flutuante do WhatsApp fixo */
+.campo-flutuante textarea {
+  min-height: 120px; /* Altura mínima de 120px para textareas */
+  resize: vertical; /* Permite redimensionar apenas verticalmente */
+  font-family: 'Roboto', sans-serif; /* Mantém fonte consistente */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 12: 🔘 BOTÕES E INTERAÇÕES PADRONIZADOS
+Sistema de botões padronizados
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.btn-primary {
+  background: linear-gradient(135deg, #2c68bc 0%, #0f4098 100%); /* Gradiente azul diagonal */
+  color: white; /* Texto branco */
+  border: none; /* Sem borda */
+  padding: 14px 28px; /* Espaçamento interno: 14px vertical, 28px horizontal */
+  border-radius: 10px; /* Cantos arredondados */
+  font-size: 15px; /* Tamanho da fonte */
+  font-weight: 600; /* Peso semi-negrito */
+  cursor: pointer; /* Cursor muda para mãozinha */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave com curva */
+  display: inline-flex; /* Flexbox inline */
+  align-items: center; /* Centraliza verticalmente */
+  gap: 10px; /* Espaçamento entre ícone e texto */
+  font-family: 'Roboto', sans-serif; /* Fonte Roboto */
+  box-shadow: 0 4px 12px rgba(44, 104, 188, 0.25); /* Sombra azul */
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px); /* Move 2px para cima */
+  box-shadow: 0 6px 20px rgba(44, 104, 188, 0.35); /* Sombra mais forte */
+  background: linear-gradient(135deg, #1e4a82 0%, #0a3270 100%); /* Gradiente mais escuro */
+}
+
+.btn-primary:active {
+  transform: translateY(0); /* Remove movimento ao clicar */
+  box-shadow: 0 2px 8px rgba(44, 104, 188, 0.3); /* Sombra menor */
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); /* Gradiente cinza diagonal */
+  color: white; /* Texto branco */
+  border: none; /* Sem borda */
+  padding: 14px 28px; /* Espaçamento interno */
+  border-radius: 10px; /* Cantos arredondados */
+  font-size: 15px; /* Tamanho da fonte */
+  font-weight: 600; /* Peso semi-negrito */
+  cursor: pointer; /* Cursor muda para mãozinha */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave */
+  display: inline-flex; /* Flexbox inline */
+  align-items: center; /* Centraliza verticalmente */
+  gap: 10px; /* Espaçamento entre elementos */
+  font-family: 'Roboto', sans-serif; /* Fonte Roboto */
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.25); /* Sombra cinza */
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px); /* Move para cima */
+  box-shadow: 0 6px 20px rgba(107, 114, 128, 0.35); /* Sombra mais forte */
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%); /* Gradiente mais escuro */
+}
+
+.btn-secondary:active {
+  transform: translateY(0); /* Remove movimento */
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3); /* Sombra menor */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 13: 📦 LAYOUT E CONTAINERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.calculo-wrapper {
+  background: white; /* Fundo branco */
+  border-radius: 16px; /* Cantos muito arredondados */
+  padding: 28px; /* Espaçamento interno */
+  margin-bottom: 24px; /* Espaçamento abaixo */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra suave */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Borda sutil */
+}
+
+.section-title {
+  margin-bottom: 24px; /* Espaçamento abaixo */
+  color: #2c3e50; /* Cor cinza azulado escuro */
+  display: flex; /* Layout flexbox */
+  align-items: center; /* Centraliza verticalmente */
+  gap: 12px; /* Espaçamento entre ícone e texto */
+  font-size: 1.5em; /* Tamanho 1.5x do base */
+  font-weight: 600; /* Peso semi-negrito */
+}
+
+.grid-calculo {
+  display: grid; /* Layout grid */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Colunas responsivas */
+  gap: 24px; /* Espaçamento entre itens */
+}
+
+.hidden {
+  display: none !important; /* Oculta elemento completamente */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 14: 📦 CONTRACHEQUE DA PENSÃO MILITAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.contracheque-container {
+  grid-column: 1 / -1; /* Faz o container ocupar todas as colunas do grid (da primeira até a última) */
+  margin-top: 30px; /* Espaçamento de 30px acima do container */
+  background: white; /* Fundo branco */
+  border-radius: 16px; /* Cantos arredondados em 12px */
+  padding: 28px; /* Espaçamento interno de 25px */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra suave */
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Borda sutil */
+}
+
+.contracheque-titulo {
+  display: flex; /* Layout flexbox */
+  align-items: center; /* Alinhamento vertical central */
+  gap: 12px; /* Espaçamento de 10px entre elementos (ícone e texto) */
+  margin-bottom: 24px; /* Espaçamento de 20px abaixo do título */
+  color: #2c3e50; /* Cor cinza-azulado escuro */
+  font-size: 18px; /* Tamanho da fonte */
+  font-weight: 600; /* Peso semi-negrito */
+  border-bottom: 2px solid #2c68bc; /* Borda inferior azul de 2px (sublinhado decorativo) */
+  padding-bottom: 12px; /* Espaçamento de 10px abaixo do texto até a borda */
+}
+
+.posto-info {
+  display: grid; /* Layout grid */
+  grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
+  gap: 16px; /* Espaçamento entre itens */
+  margin-bottom: 24px; /* Espaçamento abaixo */
+  padding: 18px; /* Espaçamento interno */
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); /* Gradiente cinza claro */
+  border-radius: 12px; /* Cantos arredondados */
+  border: 1px solid #e9ecef; /* Borda cinza clara */
+}
+
+.posto-item {
+  display: flex; /* Layout flexbox */
+  justify-content: space-between; /* Espaça label e valor */
+  align-items: center; /* Centraliza verticalmente */
+  padding: 10px 16px; /* Espaçamento interno */
+  background: white; /* Fundo branco */
+  border-radius: 8px; /* Cantos arredondados */
+  font-weight: 500; /* Peso médio */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); /* Sombra sutil */
+  transition: all 0.2s ease; /* Transição suave */
+}
+
+.posto-item:hover {
+  transform: translateX(4px); /* Move 4px para direita */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Sombra mais forte */
+}
+
+.posto-label {
+  color: #6c757d; /* Cor cinza média */
+  font-size: 14px; /* Tamanho da fonte */
+}
+
+.posto-value {
+  color: #2c3e50; /* Cor cinza azulado escuro */
+  font-weight: 600; /* Peso semi-negrito */
+}
+
+.contracheque-tabela {
+  width: 100%; /* Largura total */
+  border-collapse: collapse; /* Remove espaços entre células */
+  margin-top: 12px; /* Espaçamento acima */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* Sombra suave */
+  border-radius: 12px; /* Cantos arredondados */
+  overflow: hidden; /* Esconde overflow para border-radius funcionar */
+}
+
+.contracheque-tabela th {
+  background: linear-gradient(135deg, #2c68bc 0%, #1e5a9a 100%); /* Gradiente azul */
+  color: white; /* Texto branco */
+  padding: 16px 14px; /* Espaçamento interno */
+  text-align: center; /* Centraliza texto */
+  font-weight: 600; /* Peso semi-negrito */
+  font-size: 14px; /* Tamanho da fonte */
+  text-transform: uppercase; /* Texto em maiúsculas */
+  letter-spacing: 0.5px; /* Espaçamento entre letras */
+}
+
+.contracheque-tabela td {
+  padding: 14px; /* Espaçamento interno */
+  text-align: center; /* Centraliza texto */
+  border-bottom: 1px solid #f1f3f5; /* Linha divisória cinza clara */
+  font-size: 14px; /* Tamanho da fonte */
+  transition: all 0.2s ease; /* Transição suave */
+}
+
+.contracheque-tabela tbody tr:nth-child(even) {
+  background-color: #f8f9fa; /* Fundo cinza claro para linhas pares (zebrado) */
+}
+
+.contracheque-tabela tbody tr:hover {
+  background-color: #e3f2fd; /* Fundo azul muito claro no hover */
+  transform: scale(1.01); /* Aumenta levemente a linha */
+}
+
+.descricao-cell {
+  text-align: left !important; /* Força alinhamento à esquerda */
+  font-weight: 500; /* Peso médio */
+  color: #2c3e50; /* Cor cinza azulado */
+  padding-left: 20px !important; /* Padding esquerdo maior */
+}
+
+.percentual-cell {
+  font-weight: 600; /* Peso semi-negrito */
+  color: #495057; /* Cor cinza médio */
+}
+
+.valor-cell {
+  font-weight: 700; /* Peso negrito */
+  color: #28a745; /* Cor verde */
+}
+
+.total-row {
+  background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%) !important; /* Gradiente cinza escuro */
+  color: white !important; /* Texto branco */
+  font-weight: 700; /* Peso negrito */
+  font-size: 16px; /* Fonte maior */
+}
+
+.total-row td {
+  border-bottom: none; /* Remove borda inferior */
+}
+
+.total-row:hover {
+  background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%) !important; /* Gradiente mais claro no hover */
+}
+
+.adicional-compensacao {
+  color: #dc3545 !important; /* Cor vermelha */
+  font-weight: 600; /* Peso semi-negrito */
+}
+
+.mensagem-vazia {
+  text-align: center; /* Centraliza texto */
+  padding: 50px; /* Espaçamento interno generoso */
+  color: #6c757d; /* Cor cinza média */
+  font-style: italic; /* Texto em itálico */
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); /* Gradiente cinza claro */
+  border-radius: 12px; /* Cantos arredondados */
+  border: 2px dashed #dee2e6; /* Borda tracejada cinza */
+}
+
+.mensagem-vazia i {
+  font-size: 48px; /* Ícone grande */
+  margin-bottom: 16px; /* Espaçamento abaixo */
+  display: block; /* Ocupa linha inteira */
+  color: #adb5bd; /* Cor cinza clara */
+}
+
+/* =======================================================================================
+SEÇÃO 14.1:  INDICADORES VISUAIS PARA VALORES
+========================================================================================== */
+.valor-positivo {
+  color: #28a745 !important;
+  font-weight: 700;
+}
+
+.valor-zero {
+  color: #6c757d !important;
+  font-style: italic;
+}
+
+.valor-negativo {
+  color: #dc3545 !important;
+  font-weight: 700;
+}
+
+/* =======================================================================================
+SEÇÃO 14.2:  BADGES E INDICADORES
+========================================================================================== */
+.badge-percentual {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-alto {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badge-medio {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge-baixo {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* =======================================================================================
+SEÇÃO 14.3:  EFEITOS DE CARREGAMENTO
+========================================================================================== */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* =======================================================================================
+SEÇÃO 14.4:  IMPRESSÃO (PRINT STYLES)
+========================================================================================== */
+@media print {
+  .contracheque-container {
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+    page-break-inside: avoid;
+  }
+
+  .contracheque-tabela th,
+  .total-row {
+    background-color: #000 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .btn-exibir-ocultar {
+    display: none !important;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 15: 🪟 SISTEMA DE MODAIS
+Modais de confirmação e sucesso com design premium
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Container principal do modal */
+.modal {
+  display: none; /* Oculta o modal por padrão */
+  position: fixed; /* Fixa o modal na tela, independente do scroll */
+  z-index: 2000; /* Garante que o modal fique acima de outros elementos */
+  left: 0; /* Alinha o modal à esquerda da tela */
+  top: 0; /* Alinha o modal ao topo da tela */
+  width: 100%; /* Ocupa toda a largura da tela */
+  height: 100%; /* Ocupa toda a altura da tela */
+  background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+  backdrop-filter: blur(8px); /* Aplica desfoque ao fundo para efeito visual */
+  animation: fadeIn 0.3s ease; /* Animação de entrada suave */
+}
+
+/* Conteúdo do modal */
+.modal-conteudo {
+  background-color: white; /* Fundo branco para o conteúdo */
+  margin: 10% auto; /* Centraliza verticalmente com margem superior */
+  padding: 35px; /* Espaçamento interno */
+  border-radius: 20px; /* Bordas arredondadas */
+  width: 90%; /* Largura relativa à tela */
+  max-width: 520px; /* Limita a largura máxima */
+  text-align: center; /* Centraliza o texto */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); /* Sombra para profundidade */
+  animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animação personalizada de entrada */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Borda sutil para destaque */
+}
+
+/* Animação de entrada do modal */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0; /* Começa invisível */
+    transform: translateY(-60px) scale(0.95); /* Levemente acima e menor */
+  }
+  to {
+    opacity: 1; /* Torna-se visível */
+    transform: translateY(0) scale(1); /* Volta à posição e tamanho normal */
+  }
+}
+
+/* Ícone do modal */
+.modal-conteudo i {
+  font-size: 52px; /* Tamanho grande para destaque */
+  margin-bottom: 20px; /* Espaço abaixo do ícone */
+  display: block; /* Garante que ocupe uma linha inteira */
+}
+
+/* Título do modal */
+.modal-conteudo h2 {
+  color: #2c3e50; /* Cor escura elegante */
+  font-size: 24px; /* Tamanho do título */
+  margin-bottom: 12px; /* Espaço abaixo do título */
+  font-weight: 600; /* Peso da fonte para destaque */
+}
+
+/* Texto do modal */
+.modal-conteudo p {
+  color: #6c757d; /* Cor cinza para texto secundário */
+  font-size: 16px; /* Tamanho padrão de leitura */
+  margin-bottom: 25px; /* Espaço abaixo do parágrafo */
+  line-height: 1.6; /* Altura da linha para melhor legibilidade */
+}
+
+/* Container dos botões do modal */
+.modal-botoes {
+  display: flex; /* Usa layout flexível */
+  gap: 15px; /* Espaço entre os botões */
+  justify-content: center; /* Centraliza os botões horizontalmente */
+  margin-top: 24px; /* Espaço acima dos botões */
+  flex-wrap: wrap; /* Permite quebra de linha se necessário */
+}
+
+/* Estilo dos botões */
+.modal-botoes button {
+  min-width: 120px; /* Largura mínima para consistência visual */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 16: 💬 WHATSAPP FLUTUANTE
+Botão de contato via WhatsApp com animação
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Estilo principal do botão flutuante do WhatsApp */
 .whatsapp-flutuante {
-  position: fixed; /* trocar absolute por fixed */
-  bottom: 20px;
-  right: 20px;
-  background-color: #25d366;
-  border-radius: 50%;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  z-index: 999;
-  transition: transform 0.3s ease;
+  position: fixed; /* Fixa o botão na tela, mesmo com rolagem */
+  bottom: 25px; /* Distância de 25px da parte inferior da tela */
+  right: 25px; /* Distância de 25px da borda direita da tela */
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); /* Gradiente com as cores do WhatsApp */
+  color: white; /* Cor do ícone/texto dentro do botão */
+  width: 56px; /* Largura do botão */
+  height: 56px; /* Altura do botão */
+  border-radius: 50%; /* Formato circular */
+  display: flex; /* Usa flexbox para alinhar conteúdo */
+  align-items: center; /* Centraliza verticalmente o conteúdo */
+  justify-content: center; /* Centraliza horizontalmente o conteúdo */
+  text-decoration: none; /* Remove sublinhado de links */
+  font-size: 26px; /* Tamanho do ícone */
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); /* Sombra para dar profundidade */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave para interações */
+  z-index: 1000; /* Garante que o botão fique acima de outros elementos */
+  animation: pulse-whatsapp 2s infinite; /* Aplica animação de pulsação contínua */
 }
 
+/* Animação de pulsação do botão */
+@keyframes pulse-whatsapp {
+  0%,
+  100% {
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); /* Estado inicial e final da sombra */
+  }
+  50% {
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6); /* Estado intermediário com sombra mais intensa */
+  }
+}
+
+/* Efeito ao passar o mouse sobre o botão */
 .whatsapp-flutuante:hover {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(5deg); /* Aumenta e gira levemente o botão */
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6); /* Intensifica a sombra para destacar */
 }
 
-/* 🧩 PARTE 9 — Responsividade com Media Queries */
+/* Efeito ao clicar no botão */
+.whatsapp-flutuante:active {
+  transform: scale(1.05); /* Reduz levemente o botão para simular pressão */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 17: 📐 ESTRUTURA DE LAYOUT COM FLEXBOX
+Garante que o rodapé fique no final da tela, mesmo com pouco conteúdo
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+html,
+body {
+  height: 100%; /* Faz com que o body ocupe toda a altura da tela */
+  margin: 0; /* Remove margens padrão */
+  display: flex; /* Ativa layout flexível */
+  flex-direction: column; /* Organiza os elementos verticalmente */
+}
+
+main {
+  flex: 1; /* Ocupa o espaço restante entre o topo e o rodapé */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 18: 🦶 RODAPÉ DO SISTEMA
+Informações sobre o sistema e desenvolvedora
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.rodape {
+  background: linear-gradient(
+    135deg,
+    rgba(44, 62, 80, 0.95) 0%,
+    rgba(52, 73, 94, 0.95) 100%
+  ); /* Fundo escuro com gradiente */
+  backdrop-filter: blur(10px); /* Desfoque de fundo para efeito visual */
+  color: #cbd5e0; /* Texto cinza claro para contraste */
+  text-align: center; /* Centraliza o conteúdo */
+  padding: 20px; /* Espaçamento interno */
+  border-top: 1px solid #2d3748; /* Borda superior para separação visual */
+  font-size: 14px; /* Tamanho padrão do texto */
+  margin-top: 40px; /* Espaço acima do rodapé */
+}
+
+/* Container dos links institucionais */
+.rodape-links {
+  margin-top: 10px; /* Espaço acima dos links */
+}
+
+/* Estilo dos links do rodapé */
+.rodape-links a {
+  color: #bdc3c7; /* Cor dos links em estado normal */
+  text-decoration: none; /* Remove sublinhado */
+  margin: 0 8px; /* Espaço horizontal entre os links */
+  transition: all 0.3s ease; /* Transição suave ao interagir */
+  font-weight: 500; /* Peso da fonte para destaque */
+}
+
+/* Efeito ao passar o mouse nos links */
+.rodape-links a:hover {
+  color: white; /* Muda a cor para branco */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Adiciona brilho ao texto */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 19:🔔 SISTEMA DE NOTIFICAÇÕES
+Notificações em tempo real com design premium
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.notificacao {
+  position: fixed; /* Fixa a notificação na tela, independente do scroll */
+  top: 25px; /* Distância de 25px do topo da tela */
+  right: 25px; /* Distância de 25px da borda direita da tela */
+  padding: 18px 24px; /* Espaçamento interno: vertical 18px, horizontal 24px */
+  border-radius: 14px; /* Bordas arredondadas para visual moderno */
+  color: white; /* Cor do texto */
+  font-weight: 500; /* Peso da fonte para destaque */
+  z-index: 2001; /* Garante que fique acima de outros elementos */
+  display: flex; /* Usa flexbox para alinhar conteúdo */
+  align-items: center; /* Alinha verticalmente os itens */
+  gap: 14px; /* Espaço entre os elementos internos (ícone e texto) */
+  min-width: 320px; /* Largura mínima da notificação */
+  max-width: 420px; /* Largura máxima da notificação */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); /* Sombra para profundidade */
+  transform: translateX(500px); /* Inicialmente fora da tela (à direita) */
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Animação suave de entrada */
+  font-family: 'Roboto', sans-serif; /* Fonte moderna e legível */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borda sutil para destaque */
+}
+
+/* Classe que ativa a exibição da notificação */
+.notificacao.show {
+  transform: translateX(0); /* Move a notificação para dentro da tela */
+}
+
+/* Estilo do ícone dentro da notificação */
+.notificacao i {
+  font-size: 24px; /* Tamanho do ícone */
+  flex-shrink: 0; /* Impede que o ícone seja reduzido pelo flexbox */
+}
+
+/* Estilo para notificação de sucesso */
+.notificacao.sucesso {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%); /* Verde vibrante */
+}
+
+/* Estilo para notificação de erro */
+.notificacao.erro {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* Vermelho intenso */
+}
+
+/* Estilo para notificação informativa */
+.notificacao.info {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* Azul padrão */
+}
+
+/* Estilo para notificação de aviso */
+.notificacao.aviso {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); /* Laranja vibrante */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 20: 📱 RESPONSIVIDADE - TABLET
+Adaptações para dispositivos de tamanho médio
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 1024px) {
+  /* Aplica estilos para telas com largura até 1024px */
+
+  .faixa-superior {
+    padding: 12px 20px; /* Reduz o espaçamento da faixa superior */
+  }
+
+  .titulo-principal {
+    font-size: 1.5rem; /* Reduz o tamanho do título principal */
+  }
+
+  .logo-dap,
+  .logo-dgp {
+    height: 38px; /* Reduz a altura das logos para melhor adaptação */
+  }
+
+  .menu-container {
+    padding: 10px 20px; /* Ajusta o espaçamento interno do menu */
+  }
+
+  .menu-suspenso {
+    gap: 18px; /* Reduz o espaçamento entre os itens do menu suspenso */
+  }
+
+  .campos-grid {
+    grid-template-columns: 1fr; /* Altera layout para uma única coluna */
+    gap: 20px; /* Espaço entre os campos do formulário */
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 21: 📱 RESPONSIVIDADE - MOBILE
+Adaptações para dispositivos móveis
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
 @media (max-width: 768px) {
-  .botoes {
-    flex-direction: column;
-    align-items: stretch;
+  /* Aplica estilos para telas com largura até 768px */
+
+  body {
+    background: linear-gradient(135deg, #2c68bc 0%, #0f4098 100%); /* Altera o fundo para um gradiente roxo/azul */
   }
 
-  .menu-btn,
-  .btn-toggle-linhas {
-    width: 100%;
-    font-size: 14px;
+  main {
+    padding: 15px; /* Reduz o espaçamento interno do conteúdo principal */
   }
 
-  .campo-flutuante {
-    margin: 16px 0;
+  .faixa-superior {
+    flex-direction: column; /* Empilha os elementos verticalmente */
+    gap: 12px; /* Espaço entre os elementos */
+    padding: 16px; /* Espaçamento interno da faixa superior */
   }
 
-  .dica-campo {
-    font-size: 12px;
+  .titulo-principal {
+    font-size: 1.3rem; /* Reduz o tamanho do título */
+    order: -1; /* Move o título para o topo dentro do flex container */
+    text-align: center; /* Centraliza o texto */
+    margin-left: 0; /* Remove margem lateral */
   }
 
-  .faixa-superior-calculo {
-    flex-direction: column;
-    align-items: flex-start;
+  .logo-dap,
+  .logo-dgp {
+    height: 36px; /* Reduz a altura das logos */
   }
 
-  .btn-limpar {
-    align-self: flex-end;
-    margin-top: 10px;
+  .menu-container {
+    position: relative; /* Permite posicionamento interno */
+    top: 0; /* Remove deslocamento vertical */
+    padding: 16px; /* Espaçamento interno do menu */
   }
 
-  .titulo-calculo {
-    font-size: 16px;
-    text-align: left;
+  .menu-suspenso {
+    flex-direction: column; /* Empilha os itens do menu */
+    gap: 12px; /* Espaço entre os itens */
+    align-items: stretch; /* Faz os itens ocuparem toda a largura */
+    padding-left: 0; /* Remove recuo à esquerda */
   }
 
-  .linha-campos,
-  .linha-acordaos {
-    grid-template-columns: 1fr;
+  .dropdown-btn {
+    justify-content: center; /* Centraliza o conteúdo do botão */
+    width: 100%; /* Faz o botão ocupar toda a largura disponível */
   }
 
-  .rodape {
-    padding-bottom: 60px; /* espaço extra para botão flutuante */
+  .conteudo-abas {
+    padding: 24px; /* Espaçamento interno das abas */
+  }
+
+  .section-title {
+    font-size: 1.3rem; /* Reduz o tamanho do título da seção */
+  }
+
+  .contracheque-titulo {
+    font-size: 1.2rem; /* Reduz o tamanho do título do contracheque */
+    flex-direction: column; /* Empilha os elementos */
+    gap: 8px; /* Espaço entre os elementos */
+  }
+
+  .notificacao {
+    right: 15px; /* Reduz distância da borda direita */
+    left: 15px; /* Adiciona distância da borda esquerda */
+    min-width: auto; /* Remove largura mínima fixa */
+    max-width: none; /* Remove limite de largura máxima */
+    top: 15px; /* Reduz distância do topo */
   }
 
   .whatsapp-flutuante {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 20px; /* Ajusta distância do fundo da tela */
+    right: 20px; /* Ajusta distância da borda direita */
+    width: 52px; /* Reduz largura do botão */
+    height: 52px; /* Reduz altura do botão */
+    font-size: 24px; /* Reduz tamanho do ícone */
+  }
+
+  .modal-conteudo {
+    margin: 20% auto; /* Ajusta margem superior para centralizar verticalmente */
+    padding: 28px; /* Reduz o espaçamento interno */
+  }
+
+  .modal-botoes {
+    flex-direction: column; /* Empilha os botões verticalmente */
+    gap: 12px; /* Espaço entre os botões */
+  }
+
+  .modal-botoes button {
+    width: 100%; /* Faz os botões ocuparem toda a largura */
   }
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 22: 📱 RESPONSIVIDADE - MOBILE PEQUENO
+Adaptações para telas muito pequenas
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 480px) {
+  /* Aplica estilos para telas com largura até 480px */
+
+  main {
+    padding: 12px; /* Reduz ainda mais o espaçamento interno */
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 12px 20px; /* Ajusta o espaçamento interno dos botões */
+    font-size: 14px; /* Reduz o tamanho da fonte dos botões */
+    border-radius: 9px; /* Arredonda mais os cantos dos botões */
+  }
+
+  .titulo-principal {
+    font-size: 1.15rem; /* Reduz ainda mais o tamanho do título */
+  }
+
+  .modal-conteudo {
+    margin: 25% auto; /* Aumenta a margem superior para melhor centralização */
+    padding: 24px; /* Reduz o espaçamento interno */
+    width: 95%; /* Faz o modal ocupar quase toda a largura da tela */
+  }
+
+  .modal-conteudo h2 {
+    font-size: 20px; /* Reduz o tamanho do título do modal */
+  }
+
+  .modal-conteudo p {
+    font-size: 14px; /* Reduz o tamanho do texto do modal */
+  }
+
+  .rodape {
+    padding: 16px; /* Reduz o espaçamento interno do rodapé */
+    font-size: 13px; /* Reduz o tamanho da fonte do rodapé */
+  }
+
+  .whatsapp-flutuante {
+    width: 48px; /* Reduz largura do botão flutuante */
+    height: 48px; /* Reduz altura do botão flutuante */
+    font-size: 22px; /* Reduz tamanho do ícone */
+    bottom: 16px; /* Ajusta distância do fundo da tela */
+    right: 16px; /* Ajusta distância da borda direita */
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 23: 🎨 SCROLLBARS PERSONALIZADAS
+Estilização visual das barras de rolagem para navegadores baseados em WebKit (como Chrome, Edge e Safari)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Estilo da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px; /* Largura da barra vertical */
+  height: 10px; /* Altura da barra horizontal */
+}
+
+/* Trilha da barra de rolagem (fundo por onde o botão desliza) */
+::-webkit-scrollbar-track {
+  background: #f1f5f9; /* Cor clara para a trilha */
+  border-radius: 10px; /* Bordas arredondadas */
+}
+
+/* Botão da barra de rolagem (thumb) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #2c68bc 0%, #1e4a82 100%); /* Gradiente azul */
+  border-radius: 10px; /* Bordas arredondadas */
+  border: 2px solid #f1f5f9; /* Borda clara para contraste */
+}
+
+/* Efeito ao passar o mouse sobre o botão da rolagem */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #1e4a82 0%, #153863 100%); /* Gradiente mais escuro */
+}
+
+/* Canto entre barra horizontal e vertical */
+::-webkit-scrollbar-corner {
+  background: #f1f5f9; /* Cor clara para manter consistência visual */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 24: 🎯 CLASSES UTILITÁRIAS
+Classes auxiliares para facilitar alinhamentos, espaçamentos e visibilidade
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Alinhamento de texto */
+.text-center {
+  text-align: center; /* Centraliza o texto */
+}
+
+.text-left {
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+.text-right {
+  text-align: right; /* Alinha o texto à direita */
+}
+
+/* Margem inferior */
+.mb-10 {
+  margin-bottom: 10px; /* Espaço de 10px abaixo do elemento */
+}
+
+.mb-20 {
+  margin-bottom: 20px; /* Espaço de 20px abaixo do elemento */
+}
+
+.mb-30 {
+  margin-bottom: 30px; /* Espaço de 30px abaixo do elemento */
+}
+
+/* Margem superior */
+.mt-10 {
+  margin-top: 10px; /* Espaço de 10px acima do elemento */
+}
+
+.mt-20 {
+  margin-top: 20px; /* Espaço de 20px acima do elemento */
+}
+
+.mt-30 {
+  margin-top: 30px; /* Espaço de 30px acima do elemento */
+}
+
+/* Visibilidade */
+.hidden {
+  display: none !important; /* Oculta o elemento completamente */
+}
+
+.visible {
+  display: block !important; /* Exibe o elemento como bloco */
+}
+
+/* Layout flexível */
+.flex {
+  display: flex !important; /* Ativa o layout flexbox */
+}
+
+.flex-center {
+  display: flex !important; /* Ativa flexbox */
+  align-items: center !important; /* Alinha verticalmente ao centro */
+  justify-content: center !important; /* Alinha horizontalmente ao centro */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25: 🎯 CLASSES UTILITÁRIAS AVANÇADAS
+Classes auxiliares para facilitar alinhamentos, espaçamentos e visibilidade
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 CORES DE TEXTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.text-white {
+  color: #ffffff; /* Texto branco */
+}
+
+.text-gray {
+  color: #6c757d; /* Texto cinza médio */
+}
+
+.text-dark {
+  color: #2c3e50; /* Texto escuro elegante */
+}
+
+.text-blue {
+  color: #2c68bc; /* Azul institucional */
+}
+
+.text-success {
+  color: #10b981; /* Verde sucesso */
+}
+
+.text-error {
+  color: #ef4444; /* Vermelho erro */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25.1: 🎨 CORES DE FUNDO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.bg-white {
+  background-color: #ffffff; /* Fundo branco */
+}
+
+.bg-light {
+  background-color: #f1f5f9; /* Fundo cinza claro */
+}
+
+.bg-dark {
+  background-color: #2c3e50; /* Fundo escuro */
+}
+
+.bg-blue {
+  background-color: #2c68bc; /* Fundo azul institucional */
+}
+
+.bg-success {
+  background-color: #10b981; /* Fundo verde sucesso */
+}
+
+.bg-error {
+  background-color: #ef4444; /* Fundo vermelho erro */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25.2: 📐 TAMANHOS DE FONTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.fs-12 {
+  font-size: 12px; /* Fonte pequena */
+}
+
+.fs-14 {
+  font-size: 14px; /* Fonte padrão */
+}
+
+.fs-16 {
+  font-size: 16px; /* Fonte média */
+}
+
+.fs-18 {
+  font-size: 18px; /* Fonte grande */
+}
+
+.fs-20 {
+  font-size: 20px; /* Fonte destaque */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25.3: 📏 LARGURA E ALTURA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.w-100 {
+  width: 100%; /* Ocupa toda a largura disponível */
+}
+
+.h-100 {
+  height: 100%; /* Ocupa toda a altura disponível */
+}
+
+.max-w-600 {
+  max-width: 600px; /* Limita a largura máxima */
+}
+
+.max-h-400 {
+  max-height: 400px; /* Limita a altura máxima */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25.4: 🧱 BORDAS E ARREDONDAMENTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.rounded {
+  border-radius: 8px; /* Bordas suavemente arredondadas */
+}
+
+.rounded-full {
+  border-radius: 999px; /* Bordas totalmente circulares */
+}
+
+.border {
+  border: 1px solid #ccc; /* Borda padrão cinza */
+}
+
+.border-blue {
+  border: 1px solid #2c68bc; /* Borda azul institucional */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25.5: 🌫️ SOMBRAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.shadow-sm {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+.shadow-md {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra média */
+}
+
+.shadow-lg {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Sombra intensa */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25.6: 🔠 TEXTO E FORMATAÇÃO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.text-uppercase {
+  text-transform: uppercase; /* Transforma texto em maiúsculas */
+}
+
+.text-lowercase {
+  text-transform: lowercase; /* Transforma texto em minúsculas */
+}
+
+.text-capitalize {
+  text-transform: capitalize; /* Capitaliza cada palavra */
+}
+
+.font-bold {
+  font-weight: 700; /* Texto em negrito */
+}
+
+.font-light {
+  font-weight: 300; /* Texto com peso leve */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25.7: 🧭 POSICIONAMENTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.center-x {
+  margin-left: auto;
+  margin-right: auto; /* Centraliza horizontalmente */
+}
+
+.center-y {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza verticalmente */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 25.8: 🧩 VISIBILIDADE E ESTADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.opacity-0 {
+  opacity: 0; /* Totalmente invisível */
+}
+
+.opacity-50 {
+  opacity: 0.5; /* Semitransparente */
+}
+
+.opacity-100 {
+  opacity: 1; /* Totalmente visível */
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6; /* Desativa interações e reduz visibilidade */
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 26: ♿ ACESSIBILIDADE
+Melhorias para acessibilidade visual, contraste e movimento
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Destaque de foco visível
+   Aplica estilo visível para elementos focados via teclado (tecla Tab) */
+*:focus-visible {
+  outline: 3px solid #2c68bc; /* Borda azul ao redor do elemento focado */
+  outline-offset: 3px; /* Espaço entre a borda e o elemento */
+  border-radius: 4px; /* Bordas arredondadas para suavidade visual */
+}
+
+/* 🔹 FUNÇÃO 2: Seleção de texto personalizada
+   Estiliza a aparência do texto selecionado pelo usuário */
+::selection {
+  background: rgba(44, 104, 188, 0.25); /* Fundo azul claro translúcido */
+  color: #2c3e50; /* Texto escuro para contraste */
+}
+
+/* 🔹 FUNÇÃO 2 (continuação): Seleção de texto no Firefox
+   Usa a pseudo-classe específica para navegadores Mozilla */
+::-moz-selection {
+  background: rgba(44, 104, 188, 0.25); /* Mesmo fundo azul claro */
+  color: #2c3e50; /* Mesmo texto escuro */
+}
+
+/* 🔹 FUNÇÃO 3: Modo de alto contraste
+   Aplica ajustes visuais para usuários que ativaram alto contraste no sistema */
+@media (prefers-contrast: high) {
+  /* Campos de formulário com borda mais espessa para melhor visibilidade */
+  .campo-flutuante input,
+  .campo-flutuante select,
+  .campo-flutuante textarea {
+    border-width: 3px; /* Borda mais grossa para destaque */
+  }
+
+  /* Botões com borda branca para contraste elevado */
+  .btn-primary,
+  .btn-secondary,
+  .btn-exibir-ocultar {
+    border: 2px solid white; /* Borda branca visível sobre fundo escuro */
+  }
+}
+
+/* 🔹 FUNÇÃO 4: Redução de movimento
+   Minimiza animações e transições para usuários com sensibilidade a movimento */
+@media (prefers-reduced-motion: reduce) {
+  /* Aplica redução a todos os elementos e pseudo-elementos */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important; /* Duração mínima para animações */
+    animation-iteration-count: 1 !important; /* Executa apenas uma vez */
+    transition-duration: 0.01ms !important; /* Transições quase instantâneas */
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 27: ✨ ANIMAÇÕES GLOBAIS SUAVES
+Animações e transições para melhor UX (experiência do usuário)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: fadeIn
+   Animação de entrada com transição de opacidade */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Começa invisível */
+  }
+  to {
+    opacity: 1; /* Torna-se visível gradualmente */
+  }
+}
+
+/* 🔹 FUNÇÃO 2: slideInUp
+   Animação que desliza o elemento de baixo para cima */
+@keyframes slideInUp {
+  from {
+    opacity: 0; /* Começa invisível */
+    transform: translateY(30px); /* Deslocado 30px para baixo */
+  }
+  to {
+    opacity: 1; /* Torna-se visível */
+    transform: translateY(0); /* Volta à posição original */
+  }
+}
+
+/* 🔹 FUNÇÃO 3: slideInDown
+   Animação que desliza o elemento de cima para baixo */
+@keyframes slideInDown {
+  from {
+    opacity: 0; /* Começa invisível */
+    transform: translateY(-30px); /* Deslocado 30px para cima */
+  }
+  to {
+    opacity: 1; /* Torna-se visível */
+    transform: translateY(0); /* Volta à posição original */
+  }
+}
+
+/* 🔹 FUNÇÃO 4: scaleIn
+   Animação que aumenta o elemento suavemente */
+@keyframes scaleIn {
+  from {
+    opacity: 0; /* Começa invisível */
+    transform: scale(0.9); /* Levemente menor que o tamanho real */
+  }
+  to {
+    opacity: 1; /* Torna-se visível */
+    transform: scale(1); /* Retorna ao tamanho original */
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 28: 🎨 ESTADOS DE LOADING E SKELETON
+Feedback visual durante carregamento de dados
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 5: skeleton
+   Efeito de carregamento tipo "placeholder" para conteúdo ainda não carregado */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e8e8e8 50%,
+    #f0f0f0 75%
+  ); /* Gradiente animado para simular carregamento */
+  background-size: 200% 100%; /* Expande o fundo para permitir movimento horizontal */
+  animation: loading 1.5s infinite; /* Animação contínua de carregamento */
+  border-radius: 8px; /* Bordas arredondadas para suavidade visual */
+}
+
+/* 🔹 FUNÇÃO 6: loading-spinner
+   Indicador de carregamento giratório (spinner) */
+.loading-spinner {
+  display: inline-block; /* Permite que o spinner se comporte como um elemento inline */
+  width: 20px; /* Largura do spinner */
+  height: 20px; /* Altura do spinner */
+  border: 3px solid rgba(255, 255, 255, 0.3); /* Borda semitransparente */
+  border-radius: 50%; /* Formato circular */
+  border-top-color: white; /* Parte superior da borda em branco para criar efeito giratório */
+  animation: spin 0.8s linear infinite; /* Animação contínua de rotação */
+}
+
+/* 🔹 FUNÇÃO 6 (continuação): spin
+   Define a rotação do spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg); /* Gira o elemento em 360 graus */
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEÇÃO 29: 🎯 ESTADOS DE VALIDAÇÃO DE FORMULÁRIO
+Feedback visual para campos válidos e inválidos
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* 🔹 FUNÇÃO 1: Estilo para campos válidos
+   Aplica cor verde e fundo suave quando o campo é validado com sucesso */
+.campo-flutuante input.valido,
+.campo-flutuante select.valido,
+.campo-flutuante textarea.valido {
+  border-color: #10b981; /* Borda verde para indicar sucesso */
+  background: #f0fdf4; /* Fundo verde claro para reforçar visualmente */
+}
+
+/* 🔹 FUNÇÃO 2: Estilo para rótulo de campo válido
+   Muda a cor do label associado ao campo validado */
+.campo-flutuante input.valido + label,
+.campo-flutuante select.valido + label,
+.campo-flutuante textarea.valido + label {
+  color: #10b981; /* Cor verde no texto do label */
+}
+
+/* 🔹 FUNÇÃO 3: Estilo para campos inválidos
+   Aplica cor vermelha e fundo suave quando há erro de validação */
+.campo-flutuante input.invalido,
+.campo-flutuante select.invalido,
+.campo-flutuante textarea.invalido {
+  border-color: #ef4444; /* Borda vermelha para indicar erro */
+  background: #fef2f2; /* Fundo vermelho claro para reforçar visualmente */
+}
+
+/* 🔹 FUNÇÃO 4: Estilo para rótulo de campo inválido
+   Muda a cor do label associado ao campo com erro */
+.campo-flutuante input.invalido + label,
+.campo-flutuante select.invalido + label,
+.campo-flutuante textarea.invalido + label {
+  color: #ef4444; /* Cor vermelha no texto do label */
+}
+
+/* 🔹 FUNÇÃO 5: Mensagem de erro
+   Estiliza o texto que aparece abaixo do campo inválido */
+.mensagem-erro {
+  color: #ef4444; /* Texto vermelho para indicar erro */
+  font-size: 13px; /* Tamanho pequeno para não poluir visualmente */
+  margin-top: 6px; /* Espaço acima da mensagem */
+  display: flex; /* Usa flexbox para alinhar ícone e texto */
+  align-items: center; /* Alinha verticalmente ao centro */
+  gap: 6px; /* Espaço entre ícone e texto */
+  animation: slideInUp 0.3s ease; /* Animação suave de entrada */
+}
+
+/* 🔹 FUNÇÃO 6: Mensagem de sucesso
+   Estiliza o texto que aparece abaixo do campo validado */
+.mensagem-sucesso {
+  color: #10b981; /* Texto verde para indicar sucesso */
+  font-size: 13px; /* Tamanho pequeno para não poluir visualmente */
+  margin-top: 6px; /* Espaço acima da mensagem */
+  display: flex; /* Usa flexbox para alinhar ícone e texto */
+  align-items: center; /* Alinha verticalmente ao centro */
+  gap: 6px; /* Espaço entre ícone e texto */
+  animation: slideInUp 0.3s ease; /* Animação suave de entrada */
+}
+
+/* 
+╔═══════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                               ║
+║   ✨ PRINCIPAIS AÇÕES NA VERSÃO 2.0:                                                     
+║                                                                                               
+║   1. 🏷️  Labels flutuantes elegantes que "cortam" a borda                                     
+║   2. 🎨 Campos com feedback visual azul (#2c68bc) quando preenchidos                         
+║   3. 🔘 Botões toggle premium com efeitos de elevação e brilho                               
+║   4. ✨ Transições suaves com cubic-bezier otimizado                                         
+║   5. 📱 Responsividade completa para todos os dispositivos                                   
+║   6. ♿ Acessibilidade aprimorada com estados de foco visíveis                               
+║   7. 🎭 Animações fluidas e naturais em todos os elementos                                   
+║   8. 🎯 Estados de validação com cores e ícones informativos                                 
+║   9. 💬 Sistema de notificações moderno e discreto                                           
+║   10. 🎨 Scrollbars personalizadas matching com a paleta                                     
+║                                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════╝
+*/
+
+/* =====================================================
+🏁 FIM DO ARQUIVO CSS
+Arquivo de estilos completo e bem documentado
+===================================================== */
